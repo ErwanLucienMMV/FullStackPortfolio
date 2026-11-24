@@ -12,7 +12,7 @@ describe('DocumentPanelComponent', () => {
     fixture.detectChanges();
     TestBed.tick();
     const http = TestBed.inject(HttpTestingController);
-    http.expectOne('data/documents.fr.json').flush({ resumePdf: pdf, resumeDocx: null, portfolioPdf: null });
+    http.expectOne('/api/documents?locale=fr').flush({ resumePdf: pdf, resumeDocx: null, portfolioPdf: null });
     fixture.detectChanges();
     http.verify();
     return fixture;

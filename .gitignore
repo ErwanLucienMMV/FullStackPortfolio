@@ -5,3 +5,5 @@
 .env
 .env.*
 npm-debug.log*
+backend/documents/**/*.pdf
+backend/documents/**/*.docx

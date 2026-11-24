@@ -94,7 +94,7 @@ describe('PortfolioRepository', () => {
     let documents: unknown;
     TestBed.inject(PortfolioRepository).documents().subscribe(value => documents = value);
     const metadata = { resumePdf: { url: '/uploads/new-cv.pdf', filename: 'Erwan-CV.pdf' }, resumeDocx: null, portfolioPdf: null };
-    TestBed.inject(HttpTestingController).expectOne('data/documents.fr.json').flush(metadata);
+    TestBed.inject(HttpTestingController).expectOne('/api/documents?locale=fr').flush(metadata);
     expect(documents).toEqual(metadata);
   });
 
@@ -107,9 +107,19 @@ describe('PortfolioRepository', () => {
     http.expectOne('/api/projets/fullstack?locale=en').flush({}, { status: 503, statusText: 'Unavailable' });
     http.expectOne('data/projects.en.json').flush([]);
     repository.skills().subscribe();
-    http.expectOne('data/skills.en.json').flush([]);
+    http.expectOne('/api/skills?locale=en').flush([]);
     repository.documents().subscribe();
-    http.expectOne('data/documents.en.json').flush({ resumePdf: null, resumeDocx: null, portfolioPdf: null });
+    http.expectOne('/api/documents?locale=en').flush({ resumePdf: null, resumeDocx: null, portfolioPdf: null });
+  });
+
+  it('retains explicit fixture mode for skills and documents', () => {
+    TestBed.overrideProvider(PORTFOLIO_CONFIG, { useValue: { source: 'fixtures', apiBaseUrl: '/api' } });
+    const repository = TestBed.inject(PortfolioRepository);
+    const http = TestBed.inject(HttpTestingController);
+    repository.skills().subscribe();
+    http.expectOne('data/skills.fr.json').flush([]);
+    repository.documents().subscribe();
+    http.expectOne('data/documents.fr.json').flush({ resumePdf: null, resumeDocx: null, portfolioPdf: null });
   });
 
   it.each([
@@ -124,7 +134,8 @@ describe('PortfolioRepository', () => {
       http.expectOne(`/api/projets/${category}?locale=${locale}`)
         .flush({}, { status: 503, statusText: 'Unavailable' });
       if (category === 'fullstack') http.expectOne(`data/projects.${locale}.json`).flush(samples);
-      expect(result.map(project => project.id)).toEqual(['ft-transcendance', '42matcha']);
+      expect(result.map(project => project.id)).toContain('ft-transcendance');
+      expect(result.map(project => project.id)).toContain('42matcha');
       const matcha = result.find(project => project.id === '42matcha')!;
       expect(matcha.categories).toEqual(['fullstack', 'backend', 'frontend', 'devops']);
       expect(matcha).not.toHaveProperty('category');

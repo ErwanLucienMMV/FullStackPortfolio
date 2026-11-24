@@ -1,0 +1,69 @@
+[
+  {
+    "id": "hn-services",
+    "kind": "experience",
+    "period": "2023 — 2024",
+    "title": "HN SERVICES",
+    "description": "Ingénieur d’études et développement",
+    "details": [
+      "Angular, TypeScript, GraphQL · équipe de 5"
+    ],
+    "section": {
+      "title": "HN Services — Développement web",
+      "description": "Septembre 2023 – Juillet 2024 · Développement en équipe",
+      "highlights": [
+        {
+          "id": "forum-development",
+          "title": "Développement de fonctionnalités Angular et TypeScript",
+          "description": "Travail sur une application de forum avec GraphQL pour l’API, Angular 17 pour le front-end et NestJS, au sein d’une équipe de cinq personnes.",
+          "technologies": [
+            "Angular",
+            "TypeScript",
+            "NestJS",
+            "Docker",
+            "GraphQL"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "school-42",
+    "kind": "education",
+    "period": "2025",
+    "title": "ÉCOLE 42",
+    "description": "Formation en informatique",
+    "details": [
+      "C, C++, Unix, algorithmique et systèmes"
+    ],
+    "section": {
+      "title": "42 — Apprendre en construisant",
+      "description": "Une formation pratique fondée sur une variété de projets, l’autonomie et la collaboration.",
+      "topics": [
+        "Systèmes & Unix",
+        "Algorithmique & C/C++",
+        "Projets collaboratifs"
+      ]
+    }
+  },
+  {
+    "id": "ft-transcendance",
+    "kind": "project",
+    "period": "2026",
+    "title": "FT_TRANSCENDANCE",
+    "description": "Projet collaboratif full stack",
+    "details": [
+      "Échecs en ligne, API, WebSockets, base de données et DevOps (pipeline CI/CD et architecture de l’application)"
+    ]
+  },
+  {
+    "id": "next-step",
+    "kind": "goal",
+    "period": "À suivre",
+    "title": "PROCHAINE ÉTAPE",
+    "description": "Développeur Full Stack",
+    "details": [
+      "À la recherche d’un stage ou d’une alternance en Île-de-France"
+    ]
+  }
+]

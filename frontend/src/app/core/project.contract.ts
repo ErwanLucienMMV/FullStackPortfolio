@@ -22,6 +22,8 @@ export interface ProjectCaseStudy {
 export interface Project {
   id: string;
   name: string;
+  /** Source repository, available even without a detailed case study. */
+  repositoryUrl?: string;
   /** Include devops for Docker/containerization work. */
   categories: readonly ProjectCategory[];
   description: string;

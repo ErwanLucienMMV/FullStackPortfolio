@@ -12,7 +12,7 @@ describe('TechnicalSkillsComponent', () => {
     fixture.detectChanges();
     TestBed.tick();
     const http = TestBed.inject(HttpTestingController);
-    http.expectOne('data/skills.fr.json').flush([
+    http.expectOne('/api/skills?locale=fr').flush([
       { id: 'c', name: 'C', rating: null, certifications: [], contexts: [] },
       { id: 'sql', name: 'SQL', rating: 0, certifications: ['Certificate'], contexts: ['Project'] },
     ]);

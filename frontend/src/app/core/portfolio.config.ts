@@ -7,11 +7,11 @@ export interface PortfolioConfig {
   linkedinUrl: string | null;
 }
 
-// Projects, journey, and GitHub stats use the API. This switch controls skills/documents.
+// All content uses the API by default. Fixture mode remains available for skills/documents.
 export const PORTFOLIO_CONFIG = new InjectionToken<PortfolioConfig>('PORTFOLIO_CONFIG', {
   providedIn: 'root',
   factory: () => ({
-    source: 'fixtures',
+    source: 'api',
     apiBaseUrl: '/api',
     githubUrl: 'https://github.com/ErwanLucienMMV',
     linkedinUrl: 'https://www.linkedin.com/in/erwan-maigne-montamat/',

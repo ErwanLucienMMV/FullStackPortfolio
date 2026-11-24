@@ -43,7 +43,16 @@
   <div class="github-stats" [attr.aria-busy]="github.status === 'loading'">
     <div class="panel"><strong>{{ stats?.publicRepositories ?? '—' }}</strong><span i18n="@@publicRepositories">Repositories publics</span></div>
     <div class="panel"><strong>{{ stats?.contributions ?? '—' }}</strong><span i18n="@@githubContributions">Contributions</span></div>
-    <div class="panel"><strong>{{ stats ? stats.mainLanguages.join(' / ') || '—' : '—' }}</strong><span i18n="@@mainLanguages">Langages principaux</span></div>
+    <div class="panel">
+      @if (stats && stats.mainLanguages.length) {
+        <strong class="github-languages">
+          @for (language of stats.mainLanguages.slice(0, 3); track $index) {
+            <span class="github-language" [title]="language">{{ language }}</span>
+          }
+        </strong>
+      } @else { <strong>—</strong> }
+      <span i18n="@@mainLanguages">Langages principaux</span>
+    </div>
     <div class="panel" role="status">
       @if (github.status === 'error') { <strong i18n="@@githubOffline">Offline</strong> }
       @else if (github.status === 'ready') { <strong>LIVE</strong> }

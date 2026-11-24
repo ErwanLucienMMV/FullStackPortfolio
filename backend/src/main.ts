@@ -1,18 +1,6 @@
 import 'reflect-metadata';
-import { Controller, Get, Module } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { GithubModule } from './github/github.module';
-
-@Controller()
-class AppController {
-  @Get()
-  status() {
-    return { status: 'ok' };
-  }
-}
-
-@Module({ imports: [GithubModule], controllers: [AppController] })
-class AppModule {}
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

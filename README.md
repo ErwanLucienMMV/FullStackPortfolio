@@ -1,7 +1,7 @@
 # Full Stack Portfolio
 
 An Angular portfolio based on the supplied Figma PNG export, with a separate
-NestJS starter and Docker Compose for local development.
+NestJS API and Docker Compose for local development.
 
 Versions verified on 2026-11-24:
 
@@ -127,7 +127,8 @@ Projects on Accueil and Projets are requested from the API through
 successful empty response displays an empty state. Successful API responses are
 shared between consumers; sample data does not replace the API in the cache, so
 returning to a failed filter retries its API request. Skills and document metadata
-still use JSON fixtures in `frontend/public/data/` by default.
+also use the API by default; explicit fixture mode remains available for those two
+resources in `PORTFOLIO_CONFIG`.
 The templates use `@for` loops with stable IDs; records are not hardcoded in templates.
 Your GitHub and LinkedIn URLs are configured in
 `frontend/src/app/core/portfolio.config.ts`.
@@ -138,10 +139,16 @@ The project, journey, contact form, and GitHub statistics contracts, payloads, v
 proxy routing, and error handling are documented in [docs/endpoints.md](docs/endpoints.md).
 
 Keep the repository adapter as the boundary when designing the backend. Its
-contract is below; NestJS implements `/stats/github` and `/stats/github/languages`.
-The other endpoints still need backend implementations. Projects always request
-the API first. Set `source: 'api'` in
-`PORTFOLIO_CONFIG` to also enable API requests for skills and document metadata.
+contract is below; NestJS implements all of these routes as well as
+`POST /contact-form`. The project catalog includes the 14 supplied GitHub repositories,
+with source links, categories, technologies and short French/English descriptions
+based on repository inspection. See the [catalog](docs/endpoints.md#current-project-catalog)
+for the concepts and current implementation status. Journey retains the existing
+French/English portfolio content. Skills retain unfilled ratings, and document
+metadata stays `null` until files are supplied. Contact delivery needs a configured
+receiver before submissions can succeed. See
+[Information needed from you](docs/endpoints.md#information-needed-from-you)
+for the full content and configuration checklist.
 
 | GET endpoint | Response |
 | --- | --- |
@@ -156,8 +163,9 @@ the API first. Set `source: 'api'` in
 | `/parcours?locale=fr` | `JourneyEntry[]` |
 | `/stats/github` | `GithubStats` |
 | `/stats/github/languages` | GitHub language bytes and percentages |
-| `/api/skills?locale=fr` | `TechnicalSkill[]` |
-| `/api/documents?locale=fr` | `PortfolioDocuments` |
+| `/skills?locale=fr` | `TechnicalSkill[]` |
+| `/documents?locale=fr` | `PortfolioDocuments` |
+| `/documents/files/fr/resume.pdf` | File stream, if supplied |
 
 Types live in `frontend/src/app/core/portfolio.models.ts`. Project, journey, skill, and
 document content is localized by the server; the client supplies its active locale.
@@ -168,7 +176,8 @@ and requests time out after 15 seconds.
 The development proxy forwards `/api/**` to `http://nestjs:3000` inside Compose,
 or `http://127.0.0.1:3000` outside Docker. Override `PORTFOLIO_API_TARGET` to change
 that target. Browser requests use `/api/projets`, `/api/projets/<category>`, `/api/parcours`,
-`/api/contact-form`, and `/api/stats/github`; the proxy removes `/api` from these
+`/api/contact-form`, `/api/skills`, `/api/documents` (including downloads), and
+`/api/stats/github`; the proxy removes `/api` from these
 paths before forwarding to NestJS. This keeps the Angular `/projets` page accessible. Production
 hosting should apply the same proxy routing and project path rewrite.
 
@@ -177,21 +186,32 @@ paths. An example response is:
 
 ```json
 {
-  "resumePdf": { "url": "/uploads/cv.pdf", "filename": "Erwan-CV.pdf" },
-  "resumeDocx": { "url": "/uploads/cv.docx", "filename": "Erwan-CV.docx" },
-  "portfolioPdf": { "url": "/uploads/portfolio.pdf", "filename": "Portfolio.pdf" }
+  "resumePdf": { "url": "/api/documents/files/fr/resume.pdf", "filename": "resume.fr.pdf" },
+  "resumeDocx": null,
+  "portfolioPdf": null
 }
 ```
 
-The future API can discover files dropped onto the server and return their URLs
-here; that discovery/upload behavior belongs to the future backend. Use `null`
-for missing files. The UI enables downloads from this metadata and can preview a
-PDF from the site's or configured API's origin. The portfolio download appears
-when its metadata is present. No CV or portfolio document is bundled today.
+The API discovers `resume.pdf`, `resume.docx`, and `portfolio.pdf` placed in
+`backend/documents/fr/` or `backend/documents/en/`. Compose mounts that directory
+read-only, and these document files are ignored by Git. Missing files return
+`null`; no documents are bundled today. The download endpoint streams the supplied
+files and the UI enables downloads/preview from the returned metadata.
+
+Edit `backend/src/content/data/{projects,journey,skills}.{fr,en}.json` to populate
+the other content endpoints. They are read and validated on each request, and
+copied to `dist/content/data` during builds. `PORTFOLIO_CONTENT_DIR` and
+`PORTFOLIO_DOCUMENTS_DIR` optionally override the runtime content/document roots.
+Keep the frontend project/journey fallback JSON in sync with later content edits.
 
 The contact form validates its fields and posts to `/contact-form`. It shows a
 spinner while submitting and an error on HTTP/network failure or a 15-second
-timeout. Delivery still requires the backend endpoint to be implemented; LinkedIn
+timeout. The backend also validates and trims fields, then forwards the four-field
+JSON body to `CONTACT_WEBHOOK_URL`, with optional `CONTACT_WEBHOOK_TOKEN` bearer
+authentication. Set these backend-only values in the exported environment or local
+ignored `.env`, then recreate the NestJS container. The receiver must accept the
+documented JSON contract. Success returns 204; an unconfigured or failed receiver
+returns 503. No messages are stored locally or retried automatically. LinkedIn
 is also available for direct contact. The development-environment chart loads
 real language percentages from `/stats/github/languages` when it enters the viewport.
 GitHub activity requests `/stats/github`, displays returned statistics on success,
@@ -226,8 +246,10 @@ npm test
 ```
 
 Tests cover selection rules, byte distribution, commit pagination and time range,
-shared caching, errors/timeouts, and both NestJS HTTP routes with mocked GitHub
-responses.
+shared caching, GitHub errors/timeouts, every localized content route and category,
+missing/invalid content, document discovery/downloads, and contact validation and
+delivery. GitHub and contact receivers are mocked; HTTP route tests use temporary
+local servers and document files.
 
 ### Translation and frontend checks
 

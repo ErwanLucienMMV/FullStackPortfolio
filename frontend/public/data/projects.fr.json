@@ -1,42 +1,280 @@
 [
   {
+    "id": "atlas-dominion",
+    "name": "AtlasDominion",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/AtlasDominion",
+    "categories": [
+      "backend",
+      "devops"
+    ],
+    "description": "Pilotage de serveurs de jeux Docker depuis Discord : contrôle des accès, démarrage et arrêt des instances, supervision et sauvegardes.",
+    "type": "personal",
+    "technologies": [
+      "JavaScript",
+      "Node.js",
+      "Discord API",
+      "Docker",
+      "Traefik",
+      "Prometheus",
+      "Grafana"
+    ]
+  },
+  {
+    "id": "ft-irc",
+    "name": "ft_irc",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/ft_irc",
+    "categories": [
+      "relative-low-level",
+      "backend"
+    ],
+    "description": "Serveur IRC en C++98 gérant plusieurs clients, les messages privés, les salons et les commandes de modération via des sockets TCP.",
+    "type": "school",
+    "technologies": [
+      "C++98",
+      "POSIX sockets",
+      "TCP/IP",
+      "select",
+      "Make"
+    ]
+  },
+  {
     "id": "ft-transcendance",
     "name": "ft_transcendance",
-    "categories": ["fullstack", "backend", "frontend", "devops"],
-    "description": "Plateforme d’échecs, parties en temps réel, REST et microservices.",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/ft_transcendance",
+    "categories": [
+      "fullstack",
+      "backend",
+      "frontend",
+      "devops"
+    ],
+    "description": "Plateforme d’échecs en ligne avec parties en temps réel, matchmaking, puzzles et messagerie, déployée en conteneurs avec supervision.",
     "type": "school",
-    "technologies": ["Angular", "NestJS", "Docker"],
+    "technologies": [
+      "Angular",
+      "TypeScript",
+      "NestJS",
+      "PostgreSQL",
+      "WebSockets",
+      "Docker",
+      "Prometheus",
+      "Grafana"
+    ],
     "featured": true,
     "caseStudy": {
       "summary": "Reproduire l’expérience d’une plateforme de jeu d’échecs multijoueur.",
-      "architecture": ["Angular → NestJS API", "PostgreSQL / chess-engine / Forgemail", "Prometheus / Grafana / Backups"],
-      "contributions": ["Infrastructure Docker & Nginx", "API REST, parties, matchmaking & puzzles", "WebSockets, sauvegardes & monitoring"]
+      "architecture": [
+        "Angular → NestJS API",
+        "PostgreSQL / chess-engine / Forgemail",
+        "Prometheus / Grafana / Backups"
+      ],
+      "contributions": [
+        "Infrastructure Docker & Nginx",
+        "API REST, parties, matchmaking & puzzles",
+        "WebSockets, sauvegardes & monitoring"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/ft_transcendance"
     }
   },
   {
-    "id": "ft-minishell",
-    "name": "ft_minishell",
-    "categories": ["relative-low-level"],
-    "description": "Shell Unix : parsing, signaux, pipes et redirections.",
+    "id": "inception",
+    "name": "Inception",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/Inception",
+    "categories": [
+      "devops"
+    ],
+    "description": "Infrastructure WordPress conteneurisée : images Docker dédiées à NGINX avec TLS, PHP-FPM et MariaDB, réseau isolé et stockage persistant.",
     "type": "school",
-    "technologies": ["C", "Unix", "Make"],
-    "featured": true
+    "technologies": [
+      "Docker",
+      "Docker Compose",
+      "NGINX",
+      "WordPress",
+      "PHP-FPM",
+      "MariaDB",
+      "Shell"
+    ]
+  },
+  {
+    "id": "my-philosopher",
+    "name": "my_philosopher",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/my_philosopher",
+    "categories": [
+      "relative-low-level"
+    ],
+    "description": "Simulation du dîner des philosophes en C pour explorer les threads, la synchronisation par mutex et la prévention des accès concurrents aux données.",
+    "type": "school",
+    "technologies": [
+      "C",
+      "POSIX threads",
+      "Mutexes",
+      "Make"
+    ]
+  },
+  {
+    "id": "mypushswap",
+    "name": "mypushswap",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/mypushswap",
+    "categories": [
+      "relative-low-level"
+    ],
+    "description": "Tri d’entiers avec deux piles et un jeu d’opérations limité, en optimisant le coût des déplacements et des rotations avec l’algorithme Turk.",
+    "type": "school",
+    "technologies": [
+      "C",
+      "Algorithms",
+      "Make"
+    ]
   },
   {
     "id": "minirt",
     "name": "MiniRT",
-    "categories": ["low-level"],
-    "description": "Moteur de ray tracing avec objets géométriques.",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/minirt",
+    "categories": [
+      "low-level"
+    ],
+    "description": "Moteur de ray tracing en C lisant des scènes .rt et calculant éclairage, ombres et réflexions, avec édition de scène et rendu multithread en bonus.",
     "type": "school",
-    "technologies": ["C", "Mathématiques", "MiniLibX"]
+    "technologies": [
+      "C",
+      "MiniLibX",
+      "POSIX threads",
+      "Make"
+    ]
+  },
+  {
+    "id": "ft-minishell",
+    "name": "ft_minishell",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/ft_minishell",
+    "categories": [
+      "relative-low-level"
+    ],
+    "description": "Shell Unix inspiré de Bash : analyse des commandes, variables d’environnement, commandes internes, pipes, redirections et gestion des signaux.",
+    "type": "school",
+    "technologies": [
+      "C",
+      "GNU Readline",
+      "POSIX",
+      "Make"
+    ],
+    "featured": true
+  },
+  {
+    "id": "dr-quinn",
+    "name": "DrQuinn",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/DrQuinn",
+    "categories": [
+      "low-level"
+    ],
+    "description": "Programmes autoréplicatifs Colleen, Grace et Sully en C et assembleur x86-64, avec un bonus Python, pour explorer les quines et la génération de code.",
+    "type": "school",
+    "technologies": [
+      "C",
+      "x86-64 assembly",
+      "NASM",
+      "Python",
+      "Make"
+    ]
+  },
+  {
+    "id": "piscine-django-42",
+    "name": "Piscine-Django-42",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/Piscine-Django-42",
+    "categories": [
+      "fullstack",
+      "backend",
+      "frontend"
+    ],
+    "description": "Parcours d’exercices Python et Django couvrant pages web, SQL et ORM, sessions, authentification AJAX et chat WebSocket avec historique persistant.",
+    "type": "school",
+    "technologies": [
+      "Python",
+      "Django",
+      "PostgreSQL",
+      "SQLite",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Django Channels"
+    ]
+  },
+  {
+    "id": "full-stack-portfolio",
+    "name": "FullStackPortfolio",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/FullStackPortfolio",
+    "categories": [
+      "fullstack",
+      "backend",
+      "frontend",
+      "devops"
+    ],
+    "description": "Portfolio bilingue Angular et NestJS présentant projets, parcours et compétences, avec API REST, statistiques GitHub et environnement Docker/Podman.",
+    "type": "personal",
+    "technologies": [
+      "Angular",
+      "TypeScript",
+      "NestJS",
+      "GitHub API",
+      "Docker",
+      "Podman"
+    ]
   },
   {
     "id": "42matcha",
     "name": "42matcha",
-    "categories": ["fullstack", "backend", "frontend", "devops"],
-    "description": "Application web full stack terminée, avec front-end et back-end.",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/42matcha",
+    "categories": [
+      "fullstack",
+      "backend",
+      "frontend",
+      "devops"
+    ],
+    "description": "Application de rencontres Angular et Java avec profils, suggestions géolocalisées, affinités, messagerie et notifications en temps réel.",
     "type": "school",
-    "technologies": ["Full stack", "Web"],
+    "technologies": [
+      "Angular",
+      "TypeScript",
+      "Java",
+      "Spark Java",
+      "PostgreSQL",
+      "JDBC",
+      "WebSockets",
+      "Docker"
+    ],
     "featured": true
+  },
+  {
+    "id": "42learn2slither",
+    "name": "42Learn2Slither",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/42Learn2Slither",
+    "categories": [
+      "ai"
+    ],
+    "description": "Environnement Snake jouable avec Pygame et observation dans quatre directions, préparant un projet d’apprentissage par renforcement dont l’agent reste à implémenter.",
+    "type": "school",
+    "technologies": [
+      "Python",
+      "Pygame"
+    ]
+  },
+  {
+    "id": "42camagru",
+    "name": "42camagru",
+    "repositoryUrl": "https://github.com/ErwanLucienMMV/42camagru",
+    "categories": [
+      "fullstack",
+      "backend",
+      "frontend",
+      "devops"
+    ],
+    "description": "Préparation d’une application de photomontage en PHP : guides pour la capture webcam, la composition d’images, la galerie et une infrastructure conteneurisée ; application à réaliser.",
+    "type": "school",
+    "technologies": [
+      "PHP",
+      "PDO",
+      "GD",
+      "SQL",
+      "JavaScript",
+      "Docker"
+    ]
   }
 ]

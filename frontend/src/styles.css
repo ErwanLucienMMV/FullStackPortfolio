@@ -188,9 +188,11 @@ ul, ol { padding: 0; margin: 0; }
 .architecture-image { margin-top: 20px; max-height: 350px; object-fit: contain; }
 #etude-de-cas, #cv { scroll-margin-top: 28px; }
 .github-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; max-width: 1040px; }
-.github-stats .panel { display: flex; flex-direction: column; gap: 12px; padding: 24px 20px; }
-.github-stats strong { font-size: 32px; color: var(--cyan); }
+.github-stats .panel { display: flex; flex-direction: column; gap: 12px; padding: 24px 20px; min-width: 0; }
+.github-stats strong { font-size: 32px; line-height: 3rem; color: var(--cyan); }
 .github-stats span { color: var(--muted); font-size: 12px; }
+.github-stats .github-languages { display: flex; flex-direction: column; justify-content: center; height: 3rem; overflow: hidden; font-size: 14px; line-height: 1rem; }
+.github-stats .github-language { flex: none; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: inherit; font-size: inherit; line-height: inherit; }
 .contact-grid { gap: 28px; }
 .contact-grid h2 { font-size: 30px; }
 .contact-direct > h2 { margin-block: 30px; }

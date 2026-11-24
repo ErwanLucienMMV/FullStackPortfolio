@@ -42,8 +42,10 @@ describe('ProjectsPage GitHub activity', () => {
     expect(request.request.method).toBe('GET');
     request.flush({ publicRepositories: 12, contributions: 345, mainLanguages: ['TypeScript', 'C'] });
     fixture.detectChanges();
-    expect([...stats.querySelectorAll('strong')].map(element => element.textContent?.trim()))
-      .toEqual(['12', '345', 'TypeScript / C', 'LIVE']);
+    expect([...stats.querySelectorAll('strong')].filter(element => !element.classList.contains('github-languages'))
+      .map(element => element.textContent?.trim())).toEqual(['12', '345', 'LIVE']);
+    expect([...stats.querySelectorAll('.github-language')].map(element => element.textContent?.trim()))
+      .toEqual(['TypeScript', 'C']);
     expect(stats.getAttribute('aria-busy')).toBe('false');
   });
 
