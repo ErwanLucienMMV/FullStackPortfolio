@@ -10,8 +10,11 @@ services:
       - "127.0.0.1:4200:4200"
     environment:
       NG_CLI_ANALYTICS: "false"
+      PORTFOLIO_API_TARGET: http://nestjs:3000
     volumes:
       - ./frontend/src:/app/src:ro
+      - ./frontend/public:/app/public:ro
+      - ./frontend/proxy.conf.cjs:/app/proxy.conf.cjs:ro
       - ./frontend/angular.json:/app/angular.json:ro
       - ./frontend/tsconfig.json:/app/tsconfig.json:ro
 
@@ -25,6 +28,7 @@ services:
     environment:
       NODE_ENV: development
       PORT: "3000"
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       TSC_WATCHFILE: UsePolling
     volumes:
       - ./backend/src:/app/src:ro

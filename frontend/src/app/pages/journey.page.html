@@ -1,0 +1,55 @@
+<section class="page-intro"><p class="eyebrow" i18n="@@journeyEyebrow">01 / Mon parcours</p><h1 i18n="@@journeyTitle">Des étapes qui construisent une expertise</h1><p i18n="@@journeyDescription">Une fresque chronologique horizontale : expériences, projets majeurs et apprentissages.</p></section>
+@let state = resource.state();
+<div [attr.aria-busy]="state.status === 'loading'">
+  @if (state.status === 'loading') {
+    <app-skeleton kind="projects" />
+  } @else if (state.status === 'error') {
+    <div class="panel empty-state" role="alert">
+      <p i18n="@@journeyError">Le parcours n’a pas pu être chargé.</p>
+      <button type="button" class="button button-primary" (click)="resource.retry()" i18n="@@retry">Réessayer</button>
+    </div>
+  } @else if (entries().length === 0) {
+    <div class="panel empty-state"><p i18n="@@journeyEmpty">Le parcours sera bientôt disponible.</p></div>
+  } @else {
+    <div class="timeline" [style.--journey-count]="entries().length" tabindex="0" role="region" aria-label="Étapes du parcours, faites défiler horizontalement" i18n-aria-label="@@journeyTimeline">
+      <ol class="timeline-track">
+        @for (entry of entries(); track entry.id; let index = $index) {
+          <li class="panel">
+            <p class="eyebrow">{{ (index + 1).toString().padStart(2, '0') }} / {{ entry.period }}</p>
+            <h2>{{ entry.title }}</h2>
+            <p>{{ entry.description }}</p>
+            @for (detail of entry.details; track $index) { <p class="timeline-detail">{{ detail }}</p> }
+          </li>
+        }
+      </ol>
+      <div class="timeline-rule" aria-hidden="true">
+        @for (entry of entries(); track entry.id) { <span></span> }
+      </div>
+    </div>
+    <p class="scroll-hint" i18n="@@scrollTimeline">← Faites défiler pour explorer les étapes →</p>
+
+    @for (entry of detailedEntries(); track entry.id; let index = $index) {
+      @if (entry.section; as section) {
+        <section class="page-section">
+          <div class="section-heading">
+            <p class="eyebrow">{{ (index + 2).toString().padStart(2, '0') }} / {{ kindLabels[entry.kind] }}</p>
+            <h2>{{ section.title }}</h2>
+            <p>{{ section.description }}</p>
+          </div>
+          @for (highlight of section.highlights ?? []; track highlight.id) {
+            <article class="panel experience-card">
+              <h3>{{ highlight.title }}</h3>
+              <p>{{ highlight.description }}</p>
+              @if (highlight.technologies.length) { <p class="tech-list">{{ highlight.technologies.join(' · ') }}</p> }
+            </article>
+          }
+          @if (section.topics?.length) {
+            <div class="cards-grid training-grid">
+              @for (topic of section.topics; track $index) { <div class="panel panel-raised">{{ topic }}</div> }
+            </div>
+          }
+        </section>
+      }
+    }
+  }
+</div>

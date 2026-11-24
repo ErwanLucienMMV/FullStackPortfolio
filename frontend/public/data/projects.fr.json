@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ft-transcendance",
+    "name": "ft_transcendance",
+    "categories": ["fullstack", "backend", "frontend", "devops"],
+    "description": "Plateforme d’échecs, parties en temps réel, REST et microservices.",
+    "type": "school",
+    "technologies": ["Angular", "NestJS", "Docker"],
+    "featured": true,
+    "caseStudy": {
+      "summary": "Reproduire l’expérience d’une plateforme de jeu d’échecs multijoueur.",
+      "architecture": ["Angular → NestJS API", "PostgreSQL / chess-engine / Forgemail", "Prometheus / Grafana / Backups"],
+      "contributions": ["Infrastructure Docker & Nginx", "API REST, parties, matchmaking & puzzles", "WebSockets, sauvegardes & monitoring"]
+    }
+  },
+  {
+    "id": "ft-minishell",
+    "name": "ft_minishell",
+    "categories": ["relative-low-level"],
+    "description": "Shell Unix : parsing, signaux, pipes et redirections.",
+    "type": "school",
+    "technologies": ["C", "Unix", "Make"],
+    "featured": true
+  },
+  {
+    "id": "minirt",
+    "name": "MiniRT",
+    "categories": ["low-level"],
+    "description": "Moteur de ray tracing avec objets géométriques.",
+    "type": "school",
+    "technologies": ["C", "Mathématiques", "MiniLibX"]
+  },
+  {
+    "id": "42matcha",
+    "name": "42matcha",
+    "categories": ["fullstack", "backend", "frontend", "devops"],
+    "description": "Application web full stack terminée, avec front-end et back-end.",
+    "type": "school",
+    "technologies": ["Full stack", "Web"],
+    "featured": true
+  }
+]

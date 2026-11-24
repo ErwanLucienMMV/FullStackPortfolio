@@ -1,0 +1,51 @@
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="eyebrow" i18n="@@homeEyebrow">Portfolio <span class="eyebrow-divider">/</span> Développeur Full Stack</p>
+    <h1 id="hero-title" i18n="@@homeHeadline">Concevoir.<br>Développer.<br>Déployer.</h1>
+    <p class="hero-description" i18n="@@homeDescription">Développeur Full Stack junior, spécialisé Angular, TypeScript et architectures back-end. Du code à la production, je construis des applications robustes.</p>
+    <div class="button-row">
+      <a class="button button-primary" [routerLink]="links.path('projects')" i18n="@@discoverProjects">Découvrir mes projets <span aria-hidden="true">→</span></a>
+      <a class="button button-secondary" [routerLink]="links.path('contact')" [fragment]="links.anchors.resume" i18n="@@downloadResume">Télécharger mon CV <span aria-hidden="true">→</span></a>
+    </div>
+    <p class="hero-stack">ANGULAR · NESTJS · POSTGRESQL · DOCKER · CI/CD</p>
+  </div>
+  <div class="panel terminal" aria-label="Présentation d’Erwan" i18n-aria-label="@@terminalDescription">
+    <div class="terminal-bar"><span class="terminal-dots" aria-hidden="true">● ● ●</span><span>erwan&#64;portfolio:~</span></div>
+    <p class="terminal-command">$ whoami</p>
+    <p class="terminal-name">Erwan Maigne Montamat</p>
+    <p class="terminal-command">$ cat focus.txt</p>
+    <p>Full Stack <span class="terminal-slash">/</span> Back-end <span class="terminal-slash">/</span> DevOps</p>
+    <p class="terminal-command">$ systemctl status portfolio</p>
+    <p class="terminal-running"><span class="status-dot" aria-hidden="true"></span> active (running)</p>
+    <div class="terminal-footer" aria-hidden="true"><span>01</span><span>100%</span></div>
+  </div>
+</section>
+
+<section class="page-section" aria-labelledby="approach-title">
+  <div class="section-heading">
+    <p class="eyebrow" i18n="@@approachEyebrow">01 / En bref</p>
+    <h2 id="approach-title" i18n="@@approachTitle">Une approche de bout en bout</h2>
+    <p i18n="@@approachDescription">Du développement produit à l’infrastructure, avec un intérêt particulier pour le back-end.</p>
+  </div>
+  <div class="cards-grid approach-grid">
+    <article class="panel"><p class="eyebrow" i18n="@@interfaceLabel">01 / Interface</p><h3>Angular &amp; TypeScript</h3><p i18n="@@interfaceDescription">Interfaces claires et expérience utilisateur.</p></article>
+    <article class="panel"><p class="eyebrow" i18n="@@applicationLabel">02 / Application</p><h3>API &amp; WebSockets</h3><p i18n="@@applicationDescription">NestJS, Java, services et logique métier.</p></article>
+    <article class="panel"><p class="eyebrow" i18n="@@operationsLabel">03 / Exploitation</p><h3>Docker &amp; Monitoring</h3><p i18n="@@operationsDescription">Déploiement, observabilité et sauvegardes.</p></article>
+  </div>
+</section>
+
+<section class="page-section" aria-labelledby="ecosystem-title">
+  <div class="section-heading"><p class="eyebrow" i18n="@@ecosystemEyebrow">02 / Langages et écosystème</p><h2 id="ecosystem-title" i18n="@@ecosystemTitle">Mon environnement de développement</h2><p i18n="@@ecosystemDescription">Les langages utilisés dans mes projets, d’après les statistiques GitHub.</p></div>
+  @defer (on viewport) { <app-language-chart /> }
+  @placeholder { <app-skeleton kind="chart" /> }
+  @loading (after 100ms; minimum 200ms) { <app-skeleton kind="chart" /> }
+  @error { <p role="alert" i18n="@@sectionLoadError">Cette section n’a pas pu être chargée. Rechargez la page pour réessayer.</p> }
+</section>
+
+<section class="page-section" aria-labelledby="featured-title">
+  <div class="section-heading"><p class="eyebrow" i18n="@@featuredEyebrow">03 / Projets à la une</p><h2 id="featured-title" i18n="@@builtTitle">Ce que j’ai construit</h2><p i18n="@@featuredDescription">Une sélection de projets qui démontrent mes compétences techniques.</p></div>
+  @defer (on viewport) { <app-project-collection [preview]="true" /> }
+  @placeholder { <app-skeleton kind="projects" /> }
+  @loading (after 100ms; minimum 200ms) { <app-skeleton kind="projects" /> }
+  @error { <p role="alert" i18n="@@sectionLoadError">Cette section n’a pas pu être chargée. Rechargez la page pour réessayer.</p> }
+</section>

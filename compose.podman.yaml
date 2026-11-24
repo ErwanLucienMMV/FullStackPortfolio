@@ -1,0 +1,8 @@
+# Map the host owner of the bind mounts to the image's node user (UID/GID 1000).
+# This lets rootless Podman read the source files, including on NFS filesystems.
+services:
+  angular:
+    userns_mode: "keep-id:uid=1000,gid=1000"
+
+  nestjs:
+    userns_mode: "keep-id:uid=1000,gid=1000"

@@ -1,0 +1,44 @@
+<a class="skip-link" [href]="currentUrl().split('#')[0] + '#main-content'" i18n="@@skipToContent">Aller au contenu</a>
+<header class="site-header shell">
+  <a [routerLink]="links.path('home')" class="brand" aria-label="Erwan Maigne Montamat — Accueil" i18n-aria-label="@@brandHome">&lt;/ ERWAN.M /&gt;</a>
+  <button type="button" class="menu-toggle button button-secondary" [attr.aria-expanded]="menuOpen()" aria-controls="main-navigation" (click)="menuOpen.set(!menuOpen())" i18n="@@menu">Menu</button>
+  <nav id="main-navigation" class="main-navigation" [class.is-open]="menuOpen()" aria-label="Navigation principale" i18n-aria-label="@@mainNavigation">
+    <a [routerLink]="links.path('home')" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" i18n="@@navHome">Accueil</a>
+    <a [routerLink]="links.path('journey')" routerLinkActive="active" ariaCurrentWhenActive="page" i18n="@@navJourney">Parcours</a>
+    <a [routerLink]="links.path('projects')" routerLinkActive="active" ariaCurrentWhenActive="page" i18n="@@navProjects">Projets</a>
+    <a [routerLink]="links.path('skills')" routerLinkActive="active" ariaCurrentWhenActive="page" i18n="@@navSkills">Compétences</a>
+    <a [routerLink]="links.path('contact')" routerLinkActive="active" ariaCurrentWhenActive="page" i18n="@@navContact">Contact</a>
+    <div class="language-switch" role="group" aria-label="Langue" i18n-aria-label="@@languageSelection">
+      <a [href]="languageHref('fr')" lang="fr" hreflang="fr" [attr.aria-current]="links.locale === 'fr' ? 'true' : null">FR</a>
+      <span aria-hidden="true">/</span>
+      <a [href]="languageHref('en')" lang="en" hreflang="en" [attr.aria-current]="links.locale === 'en' ? 'true' : null">EN</a>
+    </div>
+  </nav>
+  <a [routerLink]="links.path('contact')" class="availability"><span class="status-dot" aria-hidden="true"></span><span i18n="@@availability">Ouvert aux opportunités</span></a>
+</header>
+
+<main class="shell" id="main-content" tabindex="-1">
+  @if (navigation() === 'loading') { <app-skeleton /> }
+  @if (navigation() === 'error') {
+    <div class="panel empty-state" role="alert">
+      <h1 i18n="@@pageError">Cette page n’a pas pu être chargée.</h1>
+      <button class="button button-primary" type="button" (click)="reload()" i18n="@@retryPage">Recharger la page</button>
+    </div>
+  }
+  <div [hidden]="navigation() !== 'ready'"><router-outlet /></div>
+</main>
+
+<footer class="site-footer shell">
+  <div class="footer-row">
+    <span>© {{ year }} Erwan Maigne Montamat</span><span class="footer-dot" aria-hidden="true">•</span>
+    <div class="footer-links">
+      @if (config.githubUrl) { <a [href]="config.githubUrl" target="_blank" rel="noopener noreferrer">GitHub <span class="sr-only" i18n="@@newTab">(nouvel onglet)</span></a> }
+      @else { <span aria-disabled="true">GitHub</span> }
+      <span aria-hidden="true">/</span>
+      @if (config.linkedinUrl) { <a [href]="config.linkedinUrl" target="_blank" rel="noopener noreferrer">LinkedIn <span class="sr-only" i18n="@@newTab">(nouvel onglet)</span></a> }
+      @else { <span aria-disabled="true">LinkedIn</span> }
+      <span aria-hidden="true">/</span><a [routerLink]="links.path('contact')" i18n="@@navContact">Contact</a>
+    </div>
+  </div>
+  <a class="about-link" [routerLink]="links.path('about')" i18n="@@aboutLink">À propos de ce portfolio <span aria-hidden="true">→</span></a>
+</footer>

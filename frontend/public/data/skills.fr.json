@@ -1,0 +1,9 @@
+[
+  { "id": "c", "name": "C", "rating": null, "certifications": [], "contexts": [] },
+  { "id": "cpp", "name": "C++", "rating": null, "certifications": [], "contexts": [] },
+  { "id": "sql", "name": "SQL", "rating": null, "certifications": [], "contexts": [] },
+  { "id": "linux", "name": "Linux", "rating": null, "certifications": [], "contexts": [] },
+  { "id": "git", "name": "Git", "rating": null, "certifications": [], "contexts": [] },
+  { "id": "gdb", "name": "GDB", "rating": null, "certifications": [], "contexts": [] },
+  { "id": "valgrind", "name": "Valgrind", "rating": null, "certifications": [], "contexts": [] }
+]

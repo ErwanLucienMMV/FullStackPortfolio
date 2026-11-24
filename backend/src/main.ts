@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { Controller, Get, Module } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { GithubModule } from './github/github.module';
 
 @Controller()
 class AppController {
@@ -10,7 +11,7 @@ class AppController {
   }
 }
 
-@Module({ controllers: [AppController] })
+@Module({ imports: [GithubModule], controllers: [AppController] })
 class AppModule {}
 
 async function bootstrap() {

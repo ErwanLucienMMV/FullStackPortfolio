@@ -9,6 +9,9 @@
       "projectType": "application",
       "root": "",
       "sourceRoot": "src",
+      "i18n": {
+        "sourceLocale": "fr"
+      },
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -16,7 +19,20 @@
             "browser": "src/main.ts",
             "index": "src/index.html",
             "tsConfig": "tsconfig.json",
-            "outputPath": "dist/portfolio"
+            "outputPath": "dist/portfolio",
+            "polyfills": [
+              "@angular/localize/init"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public",
+                "ignore": ["fonts/*.woff2"]
+              }
+            ]
           },
           "configurations": {
             "production": {
@@ -29,10 +45,20 @@
           },
           "defaultConfiguration": "production"
         },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json"
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "buildTarget": "portfolio:build:development"
+            "buildTarget": "portfolio:build:development",
+            "proxyConfig": "proxy.conf.cjs"
           }
         }
       }

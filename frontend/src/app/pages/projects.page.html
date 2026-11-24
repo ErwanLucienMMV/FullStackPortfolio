@@ -1,0 +1,54 @@
+<section class="page-intro"><p class="eyebrow" i18n="@@projectsEyebrow">01 / Portfolio</p><h1 i18n="@@projectsTitle">Des projets, pas seulement des technologies</h1><p i18n="@@projectsDescription">Découvrez l’architecture, les problématiques et les solutions derrière chaque réalisation.</p></section>
+<app-project-collection />
+
+@if (selectedProject(); as project) {
+  <section class="page-section" [id]="links.anchors.caseStudy" aria-labelledby="case-study-title">
+    <div class="section-heading"><p class="eyebrow" i18n="@@caseStudyEyebrow">02 / Étude de cas</p><h2 id="case-study-title">{{ project.name }}</h2><p>{{ project.caseStudy?.summary ?? project.description }}</p></div>
+    @if (project.caseStudy; as study) {
+      <div class="two-columns case-study-grid">
+        <article class="panel"><p class="eyebrow" i18n="@@architecture">Architecture</p>
+          @for (step of study.architecture; track step; let first = $first) {
+            @if (first) { <h3>{{ step }}</h3> } @else { <p><span aria-hidden="true">↓ &nbsp;</span>{{ step }}</p> }
+          }
+          <p class="architecture-note" i18n="@@architectureNote">Communication inter-services, observabilité et déploiement conteneurisé.</p>
+        </article>
+        <article class="panel"><p class="eyebrow" i18n="@@contributions">Mes contributions</p>
+          <ul class="contribution-list">@for (contribution of study.contributions; track contribution) { <li>{{ contribution }}</li> }</ul>
+          @if (study.repositoryUrl) {
+            <a class="button button-primary" [href]="study.repositoryUrl" target="_blank" rel="noopener noreferrer" i18n="@@viewRepository">Voir le dépôt GitHub <span aria-hidden="true">↗</span></a>
+          } @else {
+            <button class="button button-primary" type="button" disabled i18n="@@viewRepositoryPending">Dépôt GitHub à venir <span aria-hidden="true">→</span></button>
+          }
+        </article>
+        <article class="panel case-note"><h3 class="small-accent-heading" i18n="@@architectureDiagram">Architecture — Diagramme UML</h3>
+          @if (study.diagramUrl) { <img class="architecture-image" [src]="study.diagramUrl" [alt]="project.name" loading="lazy" decoding="async"> }
+          @else { <p i18n="@@diagramPending">Le diagramme d’architecture sera ajouté prochainement.</p> }
+        </article>
+        <article class="panel case-note"><h3 class="small-accent-heading" i18n="@@personalReflection">Retour d’expérience personnel</h3>
+          @if (study.reflection) { <p>{{ study.reflection }}</p> } @else { <p i18n="@@reflectionPending">Le retour d’expérience sur ce projet sera bientôt disponible.</p> }
+        </article>
+      </div>
+    } @else {
+      <div class="panel"><p class="tech-list">{{ project.technologies.join(' · ') }}</p><p i18n="@@caseStudyPending">L’étude de cas détaillée sera bientôt disponible.</p></div>
+    }
+  </section>
+} @else if (resource.state().status === 'error') {
+  <div class="panel empty-state" role="alert"><p i18n="@@caseStudyError">L’étude de cas n’a pas pu être chargée.</p><button class="button button-primary" type="button" (click)="resource.retry()" i18n="@@retry">Réessayer</button></div>
+}
+
+<section class="page-section">
+  <div class="section-heading"><p class="eyebrow" i18n="@@opensourceEyebrow">03 / Open source</p><h2 i18n="@@githubActivity">Activité GitHub</h2><p i18n="@@githubActivityDescription">Mes statistiques d'activites sur github</p></div>
+  @let github = githubResource.state();
+  @let stats = github.status === 'ready' ? github.data : null;
+  <div class="github-stats" [attr.aria-busy]="github.status === 'loading'">
+    <div class="panel"><strong>{{ stats?.publicRepositories ?? '—' }}</strong><span i18n="@@publicRepositories">Repositories publics</span></div>
+    <div class="panel"><strong>{{ stats?.contributions ?? '—' }}</strong><span i18n="@@githubContributions">Contributions</span></div>
+    <div class="panel"><strong>{{ stats ? stats.mainLanguages.join(' / ') || '—' : '—' }}</strong><span i18n="@@mainLanguages">Langages principaux</span></div>
+    <div class="panel" role="status">
+      @if (github.status === 'error') { <strong i18n="@@githubOffline">Offline</strong> }
+      @else if (github.status === 'ready') { <strong>LIVE</strong> }
+      @else { <strong>…</strong> }
+      <span i18n="@@githubConnectionStatus">Connexion GitHub</span>
+    </div>
+  </div>
+</section>

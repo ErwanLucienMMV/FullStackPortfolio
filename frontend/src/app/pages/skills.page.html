@@ -1,0 +1,18 @@
+<section class="page-intro"><p class="eyebrow" i18n="@@skillsEyebrow">01 / Expertise</p><h1 i18n="@@skillsTitle">Ma boîte à outils</h1><p i18n="@@skillsDescription">Un ensemble de compétences mobilisées dans des réalisations concrètes.</p></section>
+<div class="cards-grid tool-grid">
+  <article class="panel"><p class="eyebrow">01 / FRONT-END</p><h2>Angular</h2><p>TypeScript · JavaScript</p><p>HTML5 · CSS3</p></article>
+  <article class="panel"><p class="eyebrow">02 / BACK-END</p><h2>NestJS &amp; Java</h2><p>API REST · GraphQL</p><p i18n="@@springTraining">Spring Boot (formation)</p></article>
+  <article class="panel"><p class="eyebrow">03 / DEVOPS</p><h2>Docker &amp; CI/CD</h2><p>GitHub Actions · Nginx</p><p>Prometheus · Grafana</p></article>
+</div>
+<section class="page-section">
+  <div class="section-heading"><p class="eyebrow" i18n="@@workflowEyebrow">02 / Approche</p><h2 i18n="@@workflowTitle">De l’idée au déploiement</h2><p i18n="@@workflowDescription">Concevoir des solutions compréhensibles, testables et maintenables.</p></div>
+  <ol class="workflow"><li class="panel panel-raised" i18n="@@stepAnalyze">01 &nbsp; Analyser</li><li class="panel panel-raised" i18n="@@stepDesign">02 &nbsp; Concevoir</li><li class="panel panel-raised" i18n="@@stepBuild">03 &nbsp; Développer</li><li class="panel panel-raised" i18n="@@stepTest">04 &nbsp; Tester</li><li class="panel panel-raised" i18n="@@stepDeploy">05 &nbsp; Déployer</li></ol>
+</section>
+<section class="page-section" aria-labelledby="technical-skills-title">
+  <div class="section-heading"><p class="eyebrow" i18n="@@technicalSkillsEyebrow">03 / Autres technologies</p><h2 id="technical-skills-title" i18n="@@technicalSkillsTitle">Compétences techniques</h2></div>
+  <p class="accent-text assessment-note" i18n="@@assessmentNote">Autoévaluation · Profils à compléter</p>
+  @defer (on viewport) { <app-technical-skills /> }
+  @placeholder { <app-skeleton kind="skills" /> }
+  @loading (after 100ms; minimum 200ms) { <app-skeleton kind="skills" /> }
+  @error { <p role="alert" i18n="@@sectionLoadError">Cette section n’a pas pu être chargée. Rechargez la page pour réessayer.</p> }
+</section>

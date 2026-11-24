@@ -1,0 +1,23 @@
+@let state = resource.state();
+@if (state.status === 'loading') {
+  <app-skeleton kind="document" />
+} @else if (state.status === 'error') {
+  <div class="panel empty-state" role="alert"><p i18n="@@documentsError">Les documents ne sont pas disponibles pour le moment.</p><button type="button" class="button button-primary" (click)="resource.retry()" i18n="@@retry">Réessayer</button></div>
+} @else {
+  <div class="panel cv-panel">
+    <h3 i18n="@@resumeName">CV — Erwan Maigne Montamat</h3>
+    <p i18n="@@juniorRole">Développeur Full Stack junior</p>
+    <div class="button-row">
+      @if (documents()?.resumePdf; as pdf) { <a class="button button-primary" [href]="pdf.url" [download]="pdf.filename" i18n="@@downloadPdf">Télécharger le CV PDF <span aria-hidden="true">↓</span></a> }
+      @else { <button type="button" class="button button-primary" disabled i18n="@@downloadPdf">Télécharger le CV PDF <span aria-hidden="true">↓</span></button> }
+      @if (documents()?.resumeDocx; as docx) { <a class="button button-secondary" [href]="docx.url" [download]="docx.filename" i18n="@@downloadDocx">Télécharger le CV DOCX <span aria-hidden="true">↓</span></a> }
+      @else { <button type="button" class="button button-secondary" disabled i18n="@@downloadDocx">Télécharger le CV DOCX <span aria-hidden="true">↓</span></button> }
+      @if (documents()?.portfolioPdf; as portfolio) { <a class="button button-secondary" [href]="portfolio.url" [download]="portfolio.filename" i18n="@@downloadPortfolio">Télécharger le portfolio <span aria-hidden="true">↓</span></a> }
+    </div>
+    @if (previewUrl(); as pdfPreview) {
+      <iframe class="cv-preview" [src]="pdfPreview" loading="lazy" title="Aperçu du CV PDF" i18n-title="@@resumePreview"></iframe>
+    } @else {
+      <div class="cv-preview cv-placeholder"><h3 i18n="@@resumePreviewLabel">Aperçu du CV</h3><p i18n="@@resumePending">Le CV sera bientôt disponible.</p></div>
+    }
+  </div>
+}

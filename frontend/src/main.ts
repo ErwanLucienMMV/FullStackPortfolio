@@ -1,11 +1,20 @@
-import { Component } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
+import { loadTranslations } from '@angular/localize';
+import { localeFromPath } from './app/core/locale-routing';
 
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  template: '<h1>Full Stack Portfolio</h1><p>Angular is running.</p>',
-})
-class AppComponent {}
+async function start() {
+  const locale = localeFromPath(window.location.pathname);
+  document.documentElement.lang = locale;
+  $localize.locale = locale;
+  if (locale === 'en') {
+    const { default: translations } = await import('./locale/messages.en.json');
+    loadTranslations(translations);
+    document.title = 'Erwan Maigne Montamat — Full Stack Developer';
+    document.querySelector('meta[name="description"]')?.setAttribute('content',
+      'Erwan Maigne Montamat’s portfolio, Full Stack developer: Angular, TypeScript, NestJS and DevOps.');
+  }
+  // Components must be evaluated after translations are loaded, including lazy pages.
+  const { bootstrap } = await import('./bootstrap');
+  await bootstrap();
+}
 
-bootstrapApplication(AppComponent).catch(console.error);
+start().catch(console.error);

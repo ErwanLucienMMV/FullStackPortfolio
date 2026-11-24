@@ -1,0 +1,47 @@
+<section class="page-intro"><p class="eyebrow" i18n="@@contactEyebrow">01 / Prenons contact</p><h1 i18n="@@contactTitle">Construisons quelque chose ensemble.</h1><p i18n="@@contactDescription">À la recherche d’un stage ou d’une alternance en développement Full Stack.</p></section>
+<div class="two-columns contact-grid">
+  <section class="panel contact-direct"><p class="eyebrow" i18n="@@directContact">Contact direct</p><h2 i18n="@@talkProject">Parlons de votre projet.</h2><p i18n="@@linkedinDescription">LinkedIn est le moyen le plus simple de me joindre et de découvrir mon parcours professionnel.</p>
+    @if (config.linkedinUrl) {
+      <a class="social-card" [href]="config.linkedinUrl" target="_blank" rel="noopener noreferrer"><strong><span aria-hidden="true">in &nbsp; / &nbsp;</span> LinkedIn</strong><span i18n="@@viewLinkedin">Voir mon profil professionnel <span aria-hidden="true">↗</span></span></a>
+    }
+    @if (config.githubUrl) {
+      <a class="social-card" [href]="config.githubUrl" target="_blank" rel="noopener noreferrer"><strong><span aria-hidden="true">⌘ &nbsp; / &nbsp;</span> GitHub</strong><span i18n="@@viewGithub">Explorer mes repositories <span aria-hidden="true">↗</span></span></a>
+    }
+    <p class="location" i18n="@@location">Évry-Courcouronnes (91) &nbsp; · &nbsp; Île-de-France</p>
+  </section>
+  <section class="panel contact-form"><p class="eyebrow" i18n="@@sendMessage">Envoyer un message</p><h2 i18n="@@contactFormTitle">Un projet ? Une opportunité ?</h2>
+    <form (submit)="submit($event)" novalidate [attr.aria-busy]="status() === 'sending'">
+      <div class="form-row">
+        <label><span i18n="@@nameLabel">Nom</span><input name="name" autocomplete="name" required [disabled]="status() === 'sending'" [attr.aria-invalid]="errors().name || null" [attr.aria-describedby]="errors().name ? 'name-error' : null" placeholder="Votre nom" i18n-placeholder="@@namePlaceholder">
+          @if (errors().name) { <small class="field-error" id="name-error" role="alert" i18n="@@nameRequired">Veuillez renseigner votre nom.</small> }
+        </label>
+        <label><span i18n="@@emailLabel">Email</span><input name="email" type="email" autocomplete="email" required [attr.pattern]="emailPattern.source" [disabled]="status() === 'sending'" [attr.aria-invalid]="errors().email || null" [attr.aria-describedby]="errors().email ? 'email-error' : null" placeholder="vous@entreprise.fr" i18n-placeholder="@@emailPlaceholder">
+          @if (errors().email) { <small class="field-error" id="email-error" role="alert" i18n="@@emailInvalid">Veuillez saisir une adresse email valide.</small> }
+        </label>
+      </div>
+      <label><span i18n="@@subjectLabel">Objet</span><input name="subject" required [disabled]="status() === 'sending'" [attr.aria-invalid]="errors().subject || null" [attr.aria-describedby]="errors().subject ? 'subject-error' : null" placeholder="De quoi souhaitez-vous parler ?" i18n-placeholder="@@subjectPlaceholder">
+        @if (errors().subject) { <small class="field-error" id="subject-error" role="alert" i18n="@@subjectRequired">Veuillez renseigner l’objet de votre message.</small> }
+      </label>
+      <label><span i18n="@@messageLabel">Message</span><textarea name="message" required rows="3" [disabled]="status() === 'sending'" [attr.aria-invalid]="errors().message || null" [attr.aria-describedby]="errors().message ? 'message-error' : null" placeholder="Écrivez votre message ici…" i18n-placeholder="@@messagePlaceholder"></textarea>
+        @if (errors().message) { <small class="field-error" id="message-error" role="alert" i18n="@@messageRequired">Veuillez écrire un message.</small> }
+      </label>
+      <button type="submit" class="button button-primary" [disabled]="status() === 'sending'">
+        @if (status() === 'sending') {
+          <span class="submit-spinner" aria-hidden="true"></span><span i18n="@@sendingMessage">Envoi en cours…</span>
+        } @else {
+          <span i18n="@@sendMessageButton">Envoyer le message <span aria-hidden="true">→</span></span>
+        }
+      </button>
+      @if (status() === 'sending') { <p class="form-note" role="status" i18n="@@contactProcessing">Votre message est en cours de traitement…</p> }
+      @if (status() === 'error') { <p class="form-note field-error" role="alert" i18n="@@contactError">Une erreur s'est produite</p> }
+      @if (status() === 'success') { <p class="form-note" role="status" i18n="@@contactSuccess">Votre message a bien été envoyé.</p> }
+    </form>
+  </section>
+</div>
+<section class="page-section" [id]="links.anchors.resume" aria-labelledby="resume-title">
+  <div class="section-heading"><p class="eyebrow" i18n="@@resumeEyebrow">02 / CV</p><h2 id="resume-title" i18n="@@resumeTitle">Mon parcours en un document</h2><p i18n="@@resumeDescription">Retrouvez mes expériences et mes compétences aux formats PDF et DOCX.</p></div>
+  @defer (on viewport) { <app-document-panel /> }
+  @placeholder { <app-skeleton kind="document" /> }
+  @loading (after 100ms; minimum 200ms) { <app-skeleton kind="document" /> }
+  @error { <p role="alert" i18n="@@sectionLoadError">Cette section n’a pas pu être chargée. Rechargez la page pour réessayer.</p> }
+</section>

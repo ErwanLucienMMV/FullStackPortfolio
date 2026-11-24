@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ft-transcendance",
+    "name": "ft_transcendance",
+    "categories": ["fullstack", "backend", "frontend", "devops"],
+    "description": "Chess platform with real-time games, REST, and microservices.",
+    "type": "school",
+    "technologies": ["Angular", "NestJS", "Docker"],
+    "featured": true,
+    "caseStudy": {
+      "summary": "Recreating the experience of a multiplayer chess platform.",
+      "architecture": ["Angular → NestJS API", "PostgreSQL / chess-engine / Forgemail", "Prometheus / Grafana / Backups"],
+      "contributions": ["Docker & Nginx infrastructure", "REST API, games, matchmaking & puzzles", "WebSockets, backups & monitoring"]
+    }
+  },
+  {
+    "id": "ft-minishell",
+    "name": "ft_minishell",
+    "categories": ["relative-low-level"],
+    "description": "Unix shell: parsing, signals, pipes, and redirections.",
+    "type": "school",
+    "technologies": ["C", "Unix", "Make"],
+    "featured": true
+  },
+  {
+    "id": "minirt",
+    "name": "MiniRT",
+    "categories": ["low-level"],
+    "description": "Ray tracing engine with geometric objects.",
+    "type": "school",
+    "technologies": ["C", "Mathematics", "MiniLibX"]
+  },
+  {
+    "id": "42matcha",
+    "name": "42matcha",
+    "categories": ["fullstack", "backend", "frontend", "devops"],
+    "description": "Completed full stack web application with a frontend and backend.",
+    "type": "school",
+    "technologies": ["Full stack", "Web"],
+    "featured": true
+  }
+]

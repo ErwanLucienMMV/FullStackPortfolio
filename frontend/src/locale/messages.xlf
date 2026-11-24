@@ -1,0 +1,1442 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="fr">
+  <file id="ngi18n" original="ng.template">
+    <unit id="skipToContent">
+      <notes>
+        <note category="location">src/app/app.component.html:1,3</note>
+      </notes>
+      <segment>
+        <source>Aller au contenu</source>
+      </segment>
+    </unit>
+    <unit id="brandHome">
+      <notes>
+        <note category="location">src/app/app.component.html:3,4</note>
+      </notes>
+      <segment>
+        <source>Erwan Maigne Montamat — Accueil</source>
+      </segment>
+    </unit>
+    <unit id="menu">
+      <notes>
+        <note category="location">src/app/app.component.html:4,5</note>
+      </notes>
+      <segment>
+        <source>Menu</source>
+      </segment>
+    </unit>
+    <unit id="mainNavigation">
+      <notes>
+        <note category="location">src/app/app.component.html:5,6</note>
+      </notes>
+      <segment>
+        <source>Navigation principale</source>
+      </segment>
+    </unit>
+    <unit id="navHome">
+      <notes>
+        <note category="location">src/app/app.component.html:6,7</note>
+      </notes>
+      <segment>
+        <source>Accueil</source>
+      </segment>
+    </unit>
+    <unit id="navJourney">
+      <notes>
+        <note category="location">src/app/app.component.html:7,8</note>
+      </notes>
+      <segment>
+        <source>Parcours</source>
+      </segment>
+    </unit>
+    <unit id="navProjects">
+      <notes>
+        <note category="location">src/app/app.component.html:8,9</note>
+      </notes>
+      <segment>
+        <source>Projets</source>
+      </segment>
+    </unit>
+    <unit id="navSkills">
+      <notes>
+        <note category="location">src/app/app.component.html:9,10</note>
+      </notes>
+      <segment>
+        <source>Compétences</source>
+      </segment>
+    </unit>
+    <unit id="navContact">
+      <notes>
+        <note category="location">src/app/app.component.html:10,11</note>
+        <note category="location">src/app/app.component.html:40,43</note>
+      </notes>
+      <segment>
+        <source>Contact</source>
+      </segment>
+    </unit>
+    <unit id="languageSelection">
+      <notes>
+        <note category="location">src/app/app.component.html:11,12</note>
+      </notes>
+      <segment>
+        <source>Langue</source>
+      </segment>
+    </unit>
+    <unit id="availability">
+      <notes>
+        <note category="location">src/app/app.component.html:17,21</note>
+      </notes>
+      <segment>
+        <source>Ouvert aux opportunités</source>
+      </segment>
+    </unit>
+    <unit id="pageError">
+      <notes>
+        <note category="location">src/app/app.component.html:24,25</note>
+      </notes>
+      <segment>
+        <source>Cette page n’a pas pu être chargée.</source>
+      </segment>
+    </unit>
+    <unit id="retryPage">
+      <notes>
+        <note category="location">src/app/app.component.html:25,28</note>
+      </notes>
+      <segment>
+        <source>Recharger la page</source>
+      </segment>
+    </unit>
+    <unit id="newTab">
+      <notes>
+        <note category="location">src/app/app.component.html:35,37</note>
+        <note category="location">src/app/app.component.html:38,40</note>
+      </notes>
+      <segment>
+        <source>(nouvel onglet)</source>
+      </segment>
+    </unit>
+    <unit id="aboutLink">
+      <notes>
+        <note category="location">src/app/app.component.html:43,45</note>
+      </notes>
+      <segment>
+        <source>À propos de ce portfolio <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></source>
+      </segment>
+    </unit>
+    <unit id="aboutEyebrow">
+      <notes>
+        <note category="location">src/app/pages/about.page.html:1</note>
+      </notes>
+      <segment>
+        <source>Le portfolio</source>
+      </segment>
+    </unit>
+    <unit id="aboutTitle">
+      <notes>
+        <note category="location">src/app/pages/about.page.html:1</note>
+      </notes>
+      <segment>
+        <source>À propos de ce portfolio</source>
+      </segment>
+    </unit>
+    <unit id="aboutDescription">
+      <notes>
+        <note category="location">src/app/pages/about.page.html:1,3</note>
+      </notes>
+      <segment>
+        <source>Le contexte derrière les projets, les compétences et la manière de présenter mon parcours.</source>
+      </segment>
+    </unit>
+    <unit id="aboutWorkTitle">
+      <notes>
+        <note category="location">src/app/pages/about.page.html:3</note>
+      </notes>
+      <segment>
+        <source>Un point d’entrée sur mon travail</source>
+      </segment>
+    </unit>
+    <unit id="aboutWorkDescription">
+      <notes>
+        <note category="location">src/app/pages/about.page.html:3,4</note>
+      </notes>
+      <segment>
+        <source>Ce portfolio rassemble mon parcours, mes projets et mes compétences techniques. Il permet de découvrir mes réalisations, de comprendre mes contributions et de consulter mon CV depuis la page Contact.</source>
+      </segment>
+    </unit>
+    <unit id="aboutSkillsTitle">
+      <notes>
+        <note category="location">src/app/pages/about.page.html:4</note>
+      </notes>
+      <segment>
+        <source>Comment lire les compétences</source>
+      </segment>
+    </unit>
+    <unit id="aboutSkillsDescription">
+      <notes>
+        <note category="location">src/app/pages/about.page.html:4,5</note>
+      </notes>
+      <segment>
+        <source>Les notes sur 10 sont des autoévaluations personnelles. Les certifications, lorsqu’elles sont renseignées, indiquent les titres associés à une technologie. Les contextes d’utilisation précisent les projets, formations ou expériences dans lesquels elle a été pratiquée. Une note non renseignée ne signifie pas un niveau nul.</source>
+      </segment>
+    </unit>
+    <unit id="aboutMaintenanceTitle">
+      <notes>
+        <note category="location">src/app/pages/about.page.html:5</note>
+      </notes>
+      <segment>
+        <source>Réalisation et maintenance</source>
+      </segment>
+    </unit>
+    <unit id="aboutMaintenanceDescription">
+      <notes>
+        <note category="location">src/app/pages/about.page.html:5</note>
+      </notes>
+      <segment>
+        <source>Un espace pour documenter les choix de conception, les technologies du site et la façon dont son contenu est maintenu.</source>
+      </segment>
+    </unit>
+    <unit id="aboutTechnologies">
+      <notes>
+        <note category="location">src/app/pages/about.page.html:5,7</note>
+      </notes>
+      <segment>
+        <source>Interface Angular et API NestJS. Le contenu des projets, des compétences et des documents est destiné à être géré depuis le serveur.</source>
+      </segment>
+    </unit>
+    <unit id="backToPortfolio">
+      <notes>
+        <note category="location">src/app/pages/about.page.html:7,8</note>
+      </notes>
+      <segment>
+        <source>← Retour au portfolio</source>
+      </segment>
+    </unit>
+    <unit id="contactEyebrow">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:1</note>
+      </notes>
+      <segment>
+        <source>01 / Prenons contact</source>
+      </segment>
+    </unit>
+    <unit id="contactTitle">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:1</note>
+      </notes>
+      <segment>
+        <source>Construisons quelque chose ensemble.</source>
+      </segment>
+    </unit>
+    <unit id="contactDescription">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:1,3</note>
+      </notes>
+      <segment>
+        <source>À la recherche d’un stage ou d’une alternance en développement Full Stack.</source>
+      </segment>
+    </unit>
+    <unit id="directContact">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:3</note>
+      </notes>
+      <segment>
+        <source>Contact direct</source>
+      </segment>
+    </unit>
+    <unit id="talkProject">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:3</note>
+      </notes>
+      <segment>
+        <source>Parlons de votre projet.</source>
+      </segment>
+    </unit>
+    <unit id="linkedinDescription">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:3,5</note>
+      </notes>
+      <segment>
+        <source>LinkedIn est le moyen le plus simple de me joindre et de découvrir mon parcours professionnel.</source>
+      </segment>
+    </unit>
+    <unit id="viewLinkedin">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:5,7</note>
+      </notes>
+      <segment>
+        <source>Voir mon profil professionnel <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">↗</pc></source>
+      </segment>
+    </unit>
+    <unit id="viewGithub">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:8,10</note>
+      </notes>
+      <segment>
+        <source>Explorer mes repositories <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">↗</pc></source>
+      </segment>
+    </unit>
+    <unit id="location">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:10,12</note>
+      </notes>
+      <segment>
+        <source>Évry-Courcouronnes (91)   ·   Île-de-France</source>
+      </segment>
+    </unit>
+    <unit id="sendMessage">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:12,13</note>
+      </notes>
+      <segment>
+        <source>Envoyer un message</source>
+      </segment>
+    </unit>
+    <unit id="contactFormTitle">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:12,13</note>
+      </notes>
+      <segment>
+        <source>Un projet ? Une opportunité ?</source>
+      </segment>
+    </unit>
+    <unit id="nameLabel">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:15</note>
+      </notes>
+      <segment>
+        <source>Nom</source>
+      </segment>
+    </unit>
+    <unit id="namePlaceholder">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:15,16</note>
+      </notes>
+      <segment>
+        <source>Votre nom</source>
+      </segment>
+    </unit>
+    <unit id="nameRequired">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:16,18</note>
+      </notes>
+      <segment>
+        <source>Veuillez renseigner votre nom.</source>
+      </segment>
+    </unit>
+    <unit id="emailLabel">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:18</note>
+      </notes>
+      <segment>
+        <source>Email</source>
+      </segment>
+    </unit>
+    <unit id="emailPlaceholder">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:18,19</note>
+      </notes>
+      <segment>
+        <source>vous@entreprise.fr</source>
+      </segment>
+    </unit>
+    <unit id="emailInvalid">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:19,22</note>
+      </notes>
+      <segment>
+        <source>Veuillez saisir une adresse email valide.</source>
+      </segment>
+    </unit>
+    <unit id="subjectLabel">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:22</note>
+      </notes>
+      <segment>
+        <source>Objet</source>
+      </segment>
+    </unit>
+    <unit id="subjectPlaceholder">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:22,23</note>
+      </notes>
+      <segment>
+        <source>De quoi souhaitez-vous parler ?</source>
+      </segment>
+    </unit>
+    <unit id="subjectRequired">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:23,25</note>
+      </notes>
+      <segment>
+        <source>Veuillez renseigner l’objet de votre message.</source>
+      </segment>
+    </unit>
+    <unit id="messageLabel">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:25</note>
+      </notes>
+      <segment>
+        <source>Message</source>
+      </segment>
+    </unit>
+    <unit id="messagePlaceholder">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:25,26</note>
+      </notes>
+      <segment>
+        <source>Écrivez votre message ici…</source>
+      </segment>
+    </unit>
+    <unit id="messageRequired">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:26,28</note>
+      </notes>
+      <segment>
+        <source>Veuillez écrire un message.</source>
+      </segment>
+    </unit>
+    <unit id="sendingMessage">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:30,32</note>
+      </notes>
+      <segment>
+        <source>Envoi en cours…</source>
+      </segment>
+    </unit>
+    <unit id="sendMessageButton">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:32,34</note>
+      </notes>
+      <segment>
+        <source>Envoyer le message <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></source>
+      </segment>
+    </unit>
+    <unit id="contactProcessing">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:35,36</note>
+      </notes>
+      <segment>
+        <source>Votre message est en cours de traitement…</source>
+      </segment>
+    </unit>
+    <unit id="contactError">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:36,37</note>
+      </notes>
+      <segment>
+        <source>Une erreur s&apos;est produite</source>
+      </segment>
+    </unit>
+    <unit id="contactSuccess">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:37,41</note>
+      </notes>
+      <segment>
+        <source>Votre message a bien été envoyé.</source>
+      </segment>
+    </unit>
+    <unit id="resumeEyebrow">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:42</note>
+      </notes>
+      <segment>
+        <source>02 / CV</source>
+      </segment>
+    </unit>
+    <unit id="resumeTitle">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:42</note>
+      </notes>
+      <segment>
+        <source>Mon parcours en un document</source>
+      </segment>
+    </unit>
+    <unit id="resumeDescription">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:42,44</note>
+      </notes>
+      <segment>
+        <source>Retrouvez mes expériences et mes compétences aux formats PDF et DOCX.</source>
+      </segment>
+    </unit>
+    <unit id="sectionLoadError">
+      <notes>
+        <note category="location">src/app/pages/contact.page.html:46,48</note>
+        <note category="location">src/app/pages/home.page.html:42,46</note>
+        <note category="location">src/app/pages/home.page.html:50,52</note>
+        <note category="location">src/app/pages/skills.page.html:17,19</note>
+      </notes>
+      <segment>
+        <source>Cette section n’a pas pu être chargée. Rechargez la page pour réessayer.</source>
+      </segment>
+    </unit>
+    <unit id="homeEyebrow">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:3,4</note>
+      </notes>
+      <segment>
+        <source>Portfolio <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span class=&quot;eyebrow-divider&quot;&gt;" dispEnd="&lt;/span&gt;">/</pc> Développeur Full Stack</source>
+      </segment>
+    </unit>
+    <unit id="homeHeadline">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:4,5</note>
+      </notes>
+      <segment>
+        <source>Concevoir.<ph id="0" equiv="LINE_BREAK" type="fmt" disp="&lt;br&gt;"/>Développer.<ph id="1" equiv="LINE_BREAK" type="fmt" disp="&lt;br&gt;"/>Déployer.</source>
+      </segment>
+    </unit>
+    <unit id="homeDescription">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:5,7</note>
+      </notes>
+      <segment>
+        <source>Développeur Full Stack junior, spécialisé Angular, TypeScript et architectures back-end. Du code à la production, je construis des applications robustes.</source>
+      </segment>
+    </unit>
+    <unit id="discoverProjects">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:7,8</note>
+      </notes>
+      <segment>
+        <source>Découvrir mes projets <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></source>
+      </segment>
+    </unit>
+    <unit id="downloadResume">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:8,10</note>
+      </notes>
+      <segment>
+        <source>Télécharger mon CV <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></source>
+      </segment>
+    </unit>
+    <unit id="terminalDescription">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:12,13</note>
+      </notes>
+      <segment>
+        <source>Présentation d’Erwan</source>
+      </segment>
+    </unit>
+    <unit id="approachEyebrow">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:26,28</note>
+      </notes>
+      <segment>
+        <source>01 / En bref</source>
+      </segment>
+    </unit>
+    <unit id="approachTitle">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:27,28</note>
+      </notes>
+      <segment>
+        <source>Une approche de bout en bout</source>
+      </segment>
+    </unit>
+    <unit id="approachDescription">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:28,31</note>
+      </notes>
+      <segment>
+        <source>Du développement produit à l’infrastructure, avec un intérêt particulier pour le back-end.</source>
+      </segment>
+    </unit>
+    <unit id="interfaceLabel">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:31</note>
+      </notes>
+      <segment>
+        <source>01 / Interface</source>
+      </segment>
+    </unit>
+    <unit id="interfaceDescription">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:31,32</note>
+      </notes>
+      <segment>
+        <source>Interfaces claires et expérience utilisateur.</source>
+      </segment>
+    </unit>
+    <unit id="applicationLabel">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:32</note>
+      </notes>
+      <segment>
+        <source>02 / Application</source>
+      </segment>
+    </unit>
+    <unit id="applicationDescription">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:32,33</note>
+      </notes>
+      <segment>
+        <source>NestJS, Java, services et logique métier.</source>
+      </segment>
+    </unit>
+    <unit id="operationsLabel">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:33</note>
+      </notes>
+      <segment>
+        <source>03 / Exploitation</source>
+      </segment>
+    </unit>
+    <unit id="operationsDescription">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:33,37</note>
+      </notes>
+      <segment>
+        <source>Déploiement, observabilité et sauvegardes.</source>
+      </segment>
+    </unit>
+    <unit id="ecosystemEyebrow">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:38</note>
+      </notes>
+      <segment>
+        <source>02 / Langages et écosystème</source>
+      </segment>
+    </unit>
+    <unit id="ecosystemTitle">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:38</note>
+      </notes>
+      <segment>
+        <source>Mon environnement de développement</source>
+      </segment>
+    </unit>
+    <unit id="ecosystemDescription">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:38,40</note>
+      </notes>
+      <segment>
+        <source>Les langages utilisés dans mes projets, d’après les statistiques GitHub.</source>
+      </segment>
+    </unit>
+    <unit id="featuredEyebrow">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:46</note>
+      </notes>
+      <segment>
+        <source>03 / Projets à la une</source>
+      </segment>
+    </unit>
+    <unit id="builtTitle">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:46</note>
+      </notes>
+      <segment>
+        <source>Ce que j’ai construit</source>
+      </segment>
+    </unit>
+    <unit id="featuredDescription">
+      <notes>
+        <note category="location">src/app/pages/home.page.html:46,48</note>
+      </notes>
+      <segment>
+        <source>Une sélection de projets qui démontrent mes compétences techniques.</source>
+      </segment>
+    </unit>
+    <unit id="journeyEyebrow">
+      <notes>
+        <note category="location">src/app/pages/journey.page.html:1</note>
+      </notes>
+      <segment>
+        <source>01 / Mon parcours</source>
+      </segment>
+    </unit>
+    <unit id="journeyTitle">
+      <notes>
+        <note category="location">src/app/pages/journey.page.html:1</note>
+      </notes>
+      <segment>
+        <source>Des étapes qui construisent une expertise</source>
+      </segment>
+    </unit>
+    <unit id="journeyDescription">
+      <notes>
+        <note category="location">src/app/pages/journey.page.html:1,3</note>
+      </notes>
+      <segment>
+        <source>Une fresque chronologique horizontale : expériences, projets majeurs et apprentissages.</source>
+      </segment>
+    </unit>
+    <unit id="journeyError">
+      <notes>
+        <note category="location">src/app/pages/journey.page.html:8,9</note>
+      </notes>
+      <segment>
+        <source>Le parcours n’a pas pu être chargé.</source>
+      </segment>
+    </unit>
+    <unit id="retry">
+      <notes>
+        <note category="location">src/app/pages/journey.page.html:9,12</note>
+        <note category="location">src/app/pages/projects.page.html:36,40</note>
+        <note category="location">src/app/shared/document-panel.component.html:5,8</note>
+        <note category="location">src/app/shared/language-chart.component.ts:26,29</note>
+        <note category="location">src/app/shared/project-collection.component.html:14,17</note>
+        <note category="location">src/app/shared/technical-skills.component.ts:18,22</note>
+      </notes>
+      <segment>
+        <source>Réessayer</source>
+      </segment>
+    </unit>
+    <unit id="journeyEmpty">
+      <notes>
+        <note category="location">src/app/pages/journey.page.html:12,14</note>
+      </notes>
+      <segment>
+        <source>Le parcours sera bientôt disponible.</source>
+      </segment>
+    </unit>
+    <unit id="journeyTimeline">
+      <notes>
+        <note category="location">src/app/pages/journey.page.html:14,16</note>
+      </notes>
+      <segment>
+        <source>Étapes du parcours, faites défiler horizontalement</source>
+      </segment>
+    </unit>
+    <unit id="scrollTimeline">
+      <notes>
+        <note category="location">src/app/pages/journey.page.html:29,32</note>
+      </notes>
+      <segment>
+        <source>← Faites défiler pour explorer les étapes →</source>
+      </segment>
+    </unit>
+    <unit id="journeyExperience">
+      <notes>
+        <note category="location">src/app/pages/journey.page.ts:21</note>
+      </notes>
+      <segment>
+        <source>Expérience professionnelle</source>
+      </segment>
+    </unit>
+    <unit id="journeyEducation">
+      <notes>
+        <note category="location">src/app/pages/journey.page.ts:22</note>
+      </notes>
+      <segment>
+        <source>Formation</source>
+      </segment>
+    </unit>
+    <unit id="journeyProject">
+      <notes>
+        <note category="location">src/app/pages/journey.page.ts:23</note>
+      </notes>
+      <segment>
+        <source>Projet</source>
+      </segment>
+    </unit>
+    <unit id="journeyGoal">
+      <notes>
+        <note category="location">src/app/pages/journey.page.ts:24</note>
+      </notes>
+      <segment>
+        <source>À suivre</source>
+      </segment>
+    </unit>
+    <unit id="projectsEyebrow">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:1</note>
+      </notes>
+      <segment>
+        <source>01 / Portfolio</source>
+      </segment>
+    </unit>
+    <unit id="projectsTitle">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:1</note>
+      </notes>
+      <segment>
+        <source>Des projets, pas seulement des technologies</source>
+      </segment>
+    </unit>
+    <unit id="projectsDescription">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:1,5</note>
+      </notes>
+      <segment>
+        <source>Découvrez l’architecture, les problématiques et les solutions derrière chaque réalisation.</source>
+      </segment>
+    </unit>
+    <unit id="caseStudyEyebrow">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:6</note>
+      </notes>
+      <segment>
+        <source>02 / Étude de cas</source>
+      </segment>
+    </unit>
+    <unit id="architecture">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:9,11</note>
+      </notes>
+      <segment>
+        <source>Architecture</source>
+      </segment>
+    </unit>
+    <unit id="architectureNote">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:13,15</note>
+      </notes>
+      <segment>
+        <source>Communication inter-services, observabilité et déploiement conteneurisé.</source>
+      </segment>
+    </unit>
+    <unit id="contributions">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:15,16</note>
+      </notes>
+      <segment>
+        <source>Mes contributions</source>
+      </segment>
+    </unit>
+    <unit id="viewRepository">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:18,19</note>
+      </notes>
+      <segment>
+        <source>Voir le dépôt GitHub <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">↗</pc></source>
+      </segment>
+    </unit>
+    <unit id="viewRepositoryPending">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:20,21</note>
+      </notes>
+      <segment>
+        <source>Dépôt GitHub à venir <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></source>
+      </segment>
+    </unit>
+    <unit id="architectureDiagram">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:23,24</note>
+      </notes>
+      <segment>
+        <source>Architecture — Diagramme UML</source>
+      </segment>
+    </unit>
+    <unit id="diagramPending">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:25,27</note>
+      </notes>
+      <segment>
+        <source>Le diagramme d’architecture sera ajouté prochainement.</source>
+      </segment>
+    </unit>
+    <unit id="personalReflection">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:27,28</note>
+      </notes>
+      <segment>
+        <source>Retour d’expérience personnel</source>
+      </segment>
+    </unit>
+    <unit id="reflectionPending">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:28,32</note>
+      </notes>
+      <segment>
+        <source>Le retour d’expérience sur ce projet sera bientôt disponible.</source>
+      </segment>
+    </unit>
+    <unit id="caseStudyPending">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:32,36</note>
+      </notes>
+      <segment>
+        <source>L’étude de cas détaillée sera bientôt disponible.</source>
+      </segment>
+    </unit>
+    <unit id="caseStudyError">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:36</note>
+      </notes>
+      <segment>
+        <source>L’étude de cas n’a pas pu être chargée.</source>
+      </segment>
+    </unit>
+    <unit id="opensourceEyebrow">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:40</note>
+      </notes>
+      <segment>
+        <source>03 / Open source</source>
+      </segment>
+    </unit>
+    <unit id="githubActivity">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:40</note>
+      </notes>
+      <segment>
+        <source>Activité GitHub</source>
+      </segment>
+    </unit>
+    <unit id="githubActivityDescription">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:40,42</note>
+      </notes>
+      <segment>
+        <source>Mes statistiques d&apos;activites sur github</source>
+      </segment>
+    </unit>
+    <unit id="publicRepositories">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:44,45</note>
+      </notes>
+      <segment>
+        <source>Repositories publics</source>
+      </segment>
+    </unit>
+    <unit id="githubContributions">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:45,46</note>
+      </notes>
+      <segment>
+        <source>Contributions</source>
+      </segment>
+    </unit>
+    <unit id="mainLanguages">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:46,48</note>
+      </notes>
+      <segment>
+        <source>Langages principaux</source>
+      </segment>
+    </unit>
+    <unit id="githubOffline">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:48,50</note>
+        <note category="location">src/app/shared/language-chart.component.ts:19,23</note>
+      </notes>
+      <segment>
+        <source>Offline</source>
+      </segment>
+    </unit>
+    <unit id="githubConnectionStatus">
+      <notes>
+        <note category="location">src/app/pages/projects.page.html:51,55</note>
+      </notes>
+      <segment>
+        <source>Connexion GitHub</source>
+      </segment>
+    </unit>
+    <unit id="skillsEyebrow">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:1</note>
+      </notes>
+      <segment>
+        <source>01 / Expertise</source>
+      </segment>
+    </unit>
+    <unit id="skillsTitle">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:1</note>
+      </notes>
+      <segment>
+        <source>Ma boîte à outils</source>
+      </segment>
+    </unit>
+    <unit id="skillsDescription">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:1,3</note>
+      </notes>
+      <segment>
+        <source>Un ensemble de compétences mobilisées dans des réalisations concrètes.</source>
+      </segment>
+    </unit>
+    <unit id="springTraining">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:4,5</note>
+      </notes>
+      <segment>
+        <source>Spring Boot (formation)</source>
+      </segment>
+    </unit>
+    <unit id="workflowEyebrow">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:8</note>
+      </notes>
+      <segment>
+        <source>02 / Approche</source>
+      </segment>
+    </unit>
+    <unit id="workflowTitle">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:8</note>
+      </notes>
+      <segment>
+        <source>De l’idée au déploiement</source>
+      </segment>
+    </unit>
+    <unit id="workflowDescription">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:8,9</note>
+      </notes>
+      <segment>
+        <source>Concevoir des solutions compréhensibles, testables et maintenables.</source>
+      </segment>
+    </unit>
+    <unit id="stepAnalyze">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:9</note>
+      </notes>
+      <segment>
+        <source>01   Analyser</source>
+      </segment>
+    </unit>
+    <unit id="stepDesign">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:9</note>
+      </notes>
+      <segment>
+        <source>02   Concevoir</source>
+      </segment>
+    </unit>
+    <unit id="stepBuild">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:9</note>
+      </notes>
+      <segment>
+        <source>03   Développer</source>
+      </segment>
+    </unit>
+    <unit id="stepTest">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:9</note>
+      </notes>
+      <segment>
+        <source>04   Tester</source>
+      </segment>
+    </unit>
+    <unit id="stepDeploy">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:9,11</note>
+      </notes>
+      <segment>
+        <source>05   Déployer</source>
+      </segment>
+    </unit>
+    <unit id="technicalSkillsEyebrow">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:12</note>
+      </notes>
+      <segment>
+        <source>03 / Autres technologies</source>
+      </segment>
+    </unit>
+    <unit id="technicalSkillsTitle">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:12,13</note>
+      </notes>
+      <segment>
+        <source>Compétences techniques</source>
+      </segment>
+    </unit>
+    <unit id="assessmentNote">
+      <notes>
+        <note category="location">src/app/pages/skills.page.html:13,15</note>
+      </notes>
+      <segment>
+        <source>Autoévaluation · Profils à compléter</source>
+      </segment>
+    </unit>
+    <unit id="documentsError">
+      <notes>
+        <note category="location">src/app/shared/document-panel.component.html:5</note>
+      </notes>
+      <segment>
+        <source>Les documents ne sont pas disponibles pour le moment.</source>
+      </segment>
+    </unit>
+    <unit id="resumeName">
+      <notes>
+        <note category="location">src/app/shared/document-panel.component.html:8,10</note>
+      </notes>
+      <segment>
+        <source>CV — Erwan Maigne Montamat</source>
+      </segment>
+    </unit>
+    <unit id="juniorRole">
+      <notes>
+        <note category="location">src/app/shared/document-panel.component.html:9,11</note>
+      </notes>
+      <segment>
+        <source>Développeur Full Stack junior</source>
+      </segment>
+    </unit>
+    <unit id="downloadPdf">
+      <notes>
+        <note category="location">src/app/shared/document-panel.component.html:11,12</note>
+        <note category="location">src/app/shared/document-panel.component.html:12,13</note>
+      </notes>
+      <segment>
+        <source>Télécharger le CV PDF <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">↓</pc></source>
+      </segment>
+    </unit>
+    <unit id="downloadDocx">
+      <notes>
+        <note category="location">src/app/shared/document-panel.component.html:13,14</note>
+        <note category="location">src/app/shared/document-panel.component.html:14,15</note>
+      </notes>
+      <segment>
+        <source>Télécharger le CV DOCX <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">↓</pc></source>
+      </segment>
+    </unit>
+    <unit id="downloadPortfolio">
+      <notes>
+        <note category="location">src/app/shared/document-panel.component.html:15,17</note>
+      </notes>
+      <segment>
+        <source>Télécharger le portfolio <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">↓</pc></source>
+      </segment>
+    </unit>
+    <unit id="resumePreview">
+      <notes>
+        <note category="location">src/app/shared/document-panel.component.html:18,20</note>
+      </notes>
+      <segment>
+        <source>Aperçu du CV PDF</source>
+      </segment>
+    </unit>
+    <unit id="resumePreviewLabel">
+      <notes>
+        <note category="location">src/app/shared/document-panel.component.html:20,24</note>
+      </notes>
+      <segment>
+        <source>Aperçu du CV</source>
+      </segment>
+    </unit>
+    <unit id="resumePending">
+      <notes>
+        <note category="location">src/app/shared/document-panel.component.html:20,24</note>
+      </notes>
+      <segment>
+        <source>Le CV sera bientôt disponible.</source>
+      </segment>
+    </unit>
+    <unit id="languageDistribution">
+      <notes>
+        <note category="location">src/app/shared/language-chart.component.ts:17,18</note>
+      </notes>
+      <segment>
+        <source>Répartition des langages</source>
+      </segment>
+    </unit>
+    <unit id="repositoryLanguages">
+      <notes>
+        <note category="location">src/app/shared/language-chart.component.ts:17,19</note>
+      </notes>
+      <segment>
+        <source>Langages de mes repositories</source>
+      </segment>
+    </unit>
+    <unit id="languageStatsError">
+      <notes>
+        <note category="location">src/app/shared/language-chart.component.ts:25,26</note>
+      </notes>
+      <segment>
+        <source>Les statistiques des langages n’ont pas pu être chargées.</source>
+      </segment>
+    </unit>
+    <unit id="languageStatsEmpty">
+      <notes>
+        <note category="location">src/app/shared/language-chart.component.ts:29,32</note>
+      </notes>
+      <segment>
+        <source>Aucune donnée de langage disponible pour le moment.</source>
+      </segment>
+    </unit>
+    <unit id="languageLegend">
+      <notes>
+        <note category="location">src/app/shared/language-chart.component.ts:36,37</note>
+      </notes>
+      <segment>
+        <source>Répartition des langages des repositories</source>
+      </segment>
+    </unit>
+    <unit id="githubSource">
+      <notes>
+        <note category="location">src/app/shared/language-chart.component.ts:42</note>
+      </notes>
+      <segment>
+        <source>Source : GitHub</source>
+      </segment>
+    </unit>
+    <unit id="repositoryDistributionNote">
+      <notes>
+        <note category="location">src/app/shared/language-chart.component.ts:42,48</note>
+      </notes>
+      <segment>
+        <source>Les pourcentages représentent la répartition du code dans les repositories sélectionnés.</source>
+      </segment>
+    </unit>
+    <unit id="otherLanguages">
+      <notes>
+        <note category="location">src/app/shared/language-chart.component.ts:60</note>
+      </notes>
+      <segment>
+        <source>Autres</source>
+      </segment>
+    </unit>
+    <unit id="projectFilters">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.html:1,3</note>
+      </notes>
+      <segment>
+        <source>Filtrer les projets par catégorie</source>
+      </segment>
+    </unit>
+    <unit id="projectsError">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.html:12,14</note>
+      </notes>
+      <segment>
+        <source>Les projets n’ont pas pu être chargés.</source>
+      </segment>
+    </unit>
+    <unit id="requestErrorHelp">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.html:13,14</note>
+      </notes>
+      <segment>
+        <source>Vérifiez votre connexion et réessayez.</source>
+      </segment>
+    </unit>
+    <unit id="projectType">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.html:31,32</note>
+      </notes>
+      <segment>
+        <source>Type de projet</source>
+      </segment>
+    </unit>
+    <unit id="exploreProject">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.html:34,35</note>
+      </notes>
+      <segment>
+        <source>Explorer le projet <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">↗</pc></source>
+      </segment>
+    </unit>
+    <unit id="noProjects">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.html:39,40</note>
+      </notes>
+      <segment>
+        <source>Aucun projet dans cette catégorie pour le moment</source>
+      </segment>
+    </unit>
+    <unit id="noProjectsHelp">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.html:40,42</note>
+      </notes>
+      <segment>
+        <source>Cette catégorie ne contient encore aucun projet publié.</source>
+      </segment>
+    </unit>
+    <unit id="viewAllProjects">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.html:42,43</note>
+      </notes>
+      <segment>
+        <source>Voir tous les projets <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></source>
+      </segment>
+    </unit>
+    <unit id="projectPagination">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.html:48,49</note>
+      </notes>
+      <segment>
+        <source>Pagination des projets</source>
+      </segment>
+    </unit>
+    <unit id="previousPage">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.html:49,50</note>
+      </notes>
+      <segment>
+        <source><pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">←</pc> Précédent</source>
+      </segment>
+    </unit>
+    <unit id="pageNumber">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.html:52,53</note>
+      </notes>
+      <segment>
+        <source>Page <ph id="0" equiv="INTERPOLATION" disp="{{ number + 1 }}"/></source>
+      </segment>
+    </unit>
+    <unit id="nextPage">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.html:55,56</note>
+      </notes>
+      <segment>
+        <source>Suivant <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></source>
+      </segment>
+    </unit>
+    <unit id="filterAll">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.ts:24</note>
+      </notes>
+      <segment>
+        <source>Tous</source>
+      </segment>
+    </unit>
+    <unit id="filterFullstack">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.ts:25</note>
+      </notes>
+      <segment>
+        <source>Fullstack</source>
+      </segment>
+    </unit>
+    <unit id="filterRelativeLow">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.ts:26</note>
+      </notes>
+      <segment>
+        <source>Bas niveau relatif</source>
+      </segment>
+    </unit>
+    <unit id="filterLow">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.ts:27</note>
+      </notes>
+      <segment>
+        <source>Bas niveau</source>
+      </segment>
+    </unit>
+    <unit id="filterBackend">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.ts:28</note>
+      </notes>
+      <segment>
+        <source>Back-end</source>
+      </segment>
+    </unit>
+    <unit id="filterFrontend">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.ts:29</note>
+      </notes>
+      <segment>
+        <source>Front-web</source>
+      </segment>
+    </unit>
+    <unit id="filterDevops">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.ts:30</note>
+      </notes>
+      <segment>
+        <source>Dev Ops</source>
+      </segment>
+    </unit>
+    <unit id="filterAi">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.ts:31</note>
+      </notes>
+      <segment>
+        <source>IA</source>
+      </segment>
+    </unit>
+    <unit id="projectSchool">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.ts:34</note>
+      </notes>
+      <segment>
+        <source>Scolaire</source>
+      </segment>
+    </unit>
+    <unit id="projectPersonal">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.ts:35</note>
+      </notes>
+      <segment>
+        <source>Personnel</source>
+      </segment>
+    </unit>
+    <unit id="projectProfessional">
+      <notes>
+        <note category="location">src/app/shared/project-collection.component.ts:36</note>
+      </notes>
+      <segment>
+        <source>Professionnel</source>
+      </segment>
+    </unit>
+    <unit id="loading">
+      <notes>
+        <note category="location">src/app/shared/skeleton.component.ts:8,11</note>
+      </notes>
+      <segment>
+        <source>Chargement du contenu…</source>
+      </segment>
+    </unit>
+    <unit id="skillsError">
+      <notes>
+        <note category="location">src/app/shared/technical-skills.component.ts:17,18</note>
+      </notes>
+      <segment>
+        <source>Les compétences n’ont pas pu être chargées.</source>
+      </segment>
+    </unit>
+    <unit id="selfAssessment">
+      <notes>
+        <note category="location">src/app/shared/technical-skills.component.ts:25,27</note>
+      </notes>
+      <segment>
+        <source>Autoévaluation</source>
+      </segment>
+    </unit>
+    <unit id="ratingNotProvided">
+      <notes>
+        <note category="location">src/app/shared/technical-skills.component.ts:27,30</note>
+      </notes>
+      <segment>
+        <source>— / 10 · À renseigner</source>
+      </segment>
+    </unit>
+    <unit id="certifications">
+      <notes>
+        <note category="location">src/app/shared/technical-skills.component.ts:33,34</note>
+      </notes>
+      <segment>
+        <source>Certifications</source>
+      </segment>
+    </unit>
+    <unit id="certificationsPending">
+      <notes>
+        <note category="location">src/app/shared/technical-skills.component.ts:35,37</note>
+      </notes>
+      <segment>
+        <source>Certification à renseigner, si applicable.</source>
+      </segment>
+    </unit>
+    <unit id="usageContexts">
+      <notes>
+        <note category="location">src/app/shared/technical-skills.component.ts:37,38</note>
+      </notes>
+      <segment>
+        <source>Contextes d’utilisation</source>
+      </segment>
+    </unit>
+    <unit id="contextsPending">
+      <notes>
+        <note category="location">src/app/shared/technical-skills.component.ts:39,43</note>
+      </notes>
+      <segment>
+        <source>Projet, formation ou expérience à renseigner.</source>
+      </segment>
+    </unit>
+    <unit id="skillsEmpty">
+      <notes>
+        <note category="location">src/app/shared/technical-skills.component.ts:44,51</note>
+      </notes>
+      <segment>
+        <source>Les compétences seront bientôt disponibles.</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>

@@ -1,0 +1,59 @@
+<div class="filter-bar" role="group" aria-label="Filtrer les projets par catégorie" i18n-aria-label="@@projectFilters">
+  @for (filter of filters; track filter.id) {
+    <button type="button" class="filter-button" [class.selected]="category() === filter.id" [attr.aria-pressed]="category() === filter.id" (click)="selectCategory(filter.id)">{{ filter.label }}</button>
+  }
+</div>
+@let state = resource.state();
+<div class="collection-content" [attr.aria-busy]="state.status === 'loading'">
+  @if (state.status === 'loading') {
+    <app-skeleton kind="projects" />
+  } @else if (state.status === 'error') {
+    <div class="panel empty-state" role="alert">
+      <h3 i18n="@@projectsError">Les projets n’ont pas pu être chargés.</h3>
+      <p i18n="@@requestErrorHelp">Vérifiez votre connexion et réessayez.</p>
+      <button class="button button-primary" type="button" (click)="resource.retry()" i18n="@@retry">Réessayer</button>
+    </div>
+  } @else {
+    <div class="cards-grid project-grid" aria-live="polite">
+      @for (project of visible(); track project.id) {
+        <article class="panel project-card">
+          @if (project.image; as image) {
+            <img class="project-image" [src]="image.url" [alt]="image.alt" [width]="image.width" [height]="image.height" loading="lazy" decoding="async">
+          } @else {
+            <div class="project-cover" aria-hidden="true">
+              <strong><span class="project-symbol">◇</span> {{ project.name }}</strong>
+              <span class="cover-rule"></span>
+              <span class="cover-subtitle">ARCHITECTURE • ENGINEERING</span>
+              <span class="cover-stack">{{ project.technologies.slice(0, 3).join(' / ') }}</span>
+            </div>
+          }
+          <h3>{{ project.name }}</h3>
+          <div class="project-type"><span i18n="@@projectType">Type de projet</span><span>{{ projectTypes[project.type] }}</span></div>
+          <p class="project-description">{{ project.description }}</p>
+          <p class="tech-list">{{ project.technologies.join(' · ') }}</p>
+          <a class="project-link" [routerLink]="links.path('projects')" [queryParams]="{project: project.id}" [fragment]="links.anchors.caseStudy" i18n="@@exploreProject">Explorer le projet <span aria-hidden="true">↗</span></a>
+        </article>
+      } @empty {
+        <div class="panel empty-state project-empty">
+          <div class="empty-icon" aria-hidden="true"><strong>&#123; &#125;</strong><span>NO_MATCHING_PROJECTS</span></div>
+          <h3 i18n="@@noProjects">Aucun projet dans cette catégorie pour le moment</h3>
+          <p i18n="@@noProjectsHelp">Cette catégorie ne contient encore aucun projet publié.</p>
+          @if (category() !== 'all') {
+            <button type="button" class="button button-primary" (click)="selectCategory('all')" i18n="@@viewAllProjects">Voir tous les projets <span aria-hidden="true">→</span></button>
+          }
+        </div>
+      }
+    </div>
+    @if (!preview() && totalPages() > 1) {
+      <nav class="pagination" aria-label="Pagination des projets" i18n-aria-label="@@projectPagination">
+        <button type="button" class="button button-secondary" [disabled]="page() === 0" (click)="selectPage(page() - 1)" i18n="@@previousPage"><span aria-hidden="true">←</span> Précédent</button>
+        <div class="page-dots">
+          @for (number of pageNumbers(); track number) {
+            <button type="button" class="page-dot" [class.selected]="page() === number" [attr.aria-current]="page() === number ? 'page' : null" (click)="selectPage(number)"><span class="sr-only" i18n="@@pageNumber">Page {{ number + 1 }}</span></button>
+          }
+        </div>
+        <button type="button" class="button button-secondary" [disabled]="page() === totalPages() - 1" (click)="selectPage(page() + 1)" i18n="@@nextPage">Suivant <span aria-hidden="true">→</span></button>
+      </nav>
+    }
+  }
+</div>

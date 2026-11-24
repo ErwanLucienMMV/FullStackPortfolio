@@ -1,7 +1,7 @@
 # Full Stack Portfolio
 
-Local development with two separate Dockerfiles and Docker Compose. Minimal
-Angular and NestJS apps are included because the repository was empty.
+An Angular portfolio based on the supplied Figma PNG export, with a separate
+NestJS starter and Docker Compose for local development.
 
 Versions verified on 2026-11-24:
 
@@ -39,11 +39,22 @@ make down
 ```
 
 The Compose command can be overridden, for example `make build COMPOSE=podman-compose`.
-You can also run Docker Compose directly:
+The Makefile detects Podman, including the `docker` compatibility wrapper, and
+adds `compose.podman.yaml`. This maps your host UID/GID to the containers' `node`
+user so it can read bind-mounted files on rootless Podman, including NFS mounts.
+Run `make down && make up` once to recreate containers started without this mapping.
+
+With Docker Engine, you can also run Compose directly:
 
 ```sh
 docker compose config
 docker compose up --build
+```
+
+When using Podman directly, include the override:
+
+```sh
+podman-compose -f compose.yaml -f compose.podman.yaml up -d --build
 ```
 
 Frontend: <http://localhost:4200>. Backend: <http://localhost:3000>, returning
@@ -68,6 +79,185 @@ Both Docker images build successfully, and both starter apps compile inside
 their Node 26.13.1 containers. Compose parsing and lockfile consistency were
 verified. The backend's HTTP 200 JSON response was also checked on the host.
 
-Full Compose startup could not be verified in this workspace because the local
-Podman DNS service fails to connect to its user scope bus. Temporary verification
-containers and the network were removed after testing.
+Full Compose startup through `make down && make up` was verified with rootless
+Podman and the UID/GID mapping override. Both applications compiled successfully;
+the frontend returned HTTP 200 and the backend returned `{"status":"ok"}`.
+
+## Angular portfolio
+
+The six screens are available in French and English:
+
+| Page | Français | English |
+| --- | --- | --- |
+| Home | `/fr` | `/en` |
+| Journey | `/fr/parcours` | `/en/journey` |
+| Projects | `/fr/projets` | `/en/projects` |
+| Skills | `/fr/competences` | `/en/skills` |
+| Contact | `/fr/contact` | `/en/contact` |
+| About | `/fr/a-propos` | `/en/about` |
+
+`/` and the previous unprefixed French URLs redirect to their `/fr` equivalents.
+Invalid URLs display a centered light-blue 404, preserving the requested URL.
+The FR/EN links switch to the equivalent page, preserving query parameters,
+selected projects, and translated resume/case-study anchors. They reload the page
+to initialize Angular's runtime translations in the chosen language.
+
+Each route loads a separate JavaScript chunk. The
+home-page project collection and language chart, technical skills, and document
+panel additionally load when they enter the viewport. Skeletons cover both lazy
+code loading and HTTP requests; failed requests have retry controls. Projects
+support category filtering, pagination, empty states, and selectable case studies.
+The project contract is defined in `frontend/src/app/core/project.contract.ts`.
+Projects use a `categories` list and may appear in several filters; both
+ft_transcendance and the completed 42matcha project belong to Fullstack, Back-end,
+Front-web, and DevOps. Projects using Docker belong in the DevOps category.
+
+Journey timeline cards, their detail paragraphs, and expanded experience/education
+sections are rendered from one `JourneyEntry[]` list, defined in
+`frontend/src/app/core/journey.contract.ts`. The page requests
+`GET /parcours?locale=fr|en` first, then uses `frontend/public/data/journey.<language>.json`
+only if the API request fails. The list order controls the timeline and numbering;
+the layout adapts to the number of entries. See [docs/endpoints.md](docs/endpoints.md)
+for the complete interface and an example response.
+
+Projects on Accueil and Projets are requested from the API through
+`PortfolioRepository`. Each filter has its own endpoint. Only a failed API request
+(including a timeout) loads sample projects from
+`frontend/public/data/projects.<language>.json`, filtered to the selected category. A
+successful empty response displays an empty state. Successful API responses are
+shared between consumers; sample data does not replace the API in the cache, so
+returning to a failed filter retries its API request. Skills and document metadata
+still use JSON fixtures in `frontend/public/data/` by default.
+The templates use `@for` loops with stable IDs; records are not hardcoded in templates.
+Your GitHub and LinkedIn URLs are configured in
+`frontend/src/app/core/portfolio.config.ts`.
+
+### NestJS API contract
+
+The project, journey, contact form, and GitHub statistics contracts, payloads, validation,
+proxy routing, and error handling are documented in [docs/endpoints.md](docs/endpoints.md).
+
+Keep the repository adapter as the boundary when designing the backend. Its
+contract is below; NestJS implements `/stats/github` and `/stats/github/languages`.
+The other endpoints still need backend implementations. Projects always request
+the API first. Set `source: 'api'` in
+`PORTFOLIO_CONFIG` to also enable API requests for skills and document metadata.
+
+| GET endpoint | Response |
+| --- | --- |
+| `/projets?locale=fr` | `Project[]` (all projects) |
+| `/projets/fullstack?locale=fr` | `Project[]` |
+| `/projets/relative-low-level?locale=fr` | `Project[]` |
+| `/projets/low-level?locale=fr` | `Project[]` |
+| `/projets/backend?locale=fr` | `Project[]` |
+| `/projets/frontend?locale=fr` | `Project[]` |
+| `/projets/devops?locale=fr` | `Project[]` |
+| `/projets/ai?locale=fr` | `Project[]` |
+| `/parcours?locale=fr` | `JourneyEntry[]` |
+| `/stats/github` | `GithubStats` |
+| `/stats/github/languages` | GitHub language bytes and percentages |
+| `/api/skills?locale=fr` | `TechnicalSkill[]` |
+| `/api/documents?locale=fr` | `PortfolioDocuments` |
+
+Types live in `frontend/src/app/core/portfolio.models.ts`. Project, journey, skill, and
+document content is localized by the server; the client supplies its active locale.
+Shared requests are cached for the current application session. Failed requests
+can be retried, in-flight subscriptions are cancelled on component destruction,
+and requests time out after 15 seconds.
+
+The development proxy forwards `/api/**` to `http://nestjs:3000` inside Compose,
+or `http://127.0.0.1:3000` outside Docker. Override `PORTFOLIO_API_TARGET` to change
+that target. Browser requests use `/api/projets`, `/api/projets/<category>`, `/api/parcours`,
+`/api/contact-form`, and `/api/stats/github`; the proxy removes `/api` from these
+paths before forwarding to NestJS. This keeps the Angular `/projets` page accessible. Production
+hosting should apply the same proxy routing and project path rewrite.
+
+Document metadata comes from the same data adapter, rather than compiled download
+paths. An example response is:
+
+```json
+{
+  "resumePdf": { "url": "/uploads/cv.pdf", "filename": "Erwan-CV.pdf" },
+  "resumeDocx": { "url": "/uploads/cv.docx", "filename": "Erwan-CV.docx" },
+  "portfolioPdf": { "url": "/uploads/portfolio.pdf", "filename": "Portfolio.pdf" }
+}
+```
+
+The future API can discover files dropped onto the server and return their URLs
+here; that discovery/upload behavior belongs to the future backend. Use `null`
+for missing files. The UI enables downloads from this metadata and can preview a
+PDF from the site's or configured API's origin. The portfolio download appears
+when its metadata is present. No CV or portfolio document is bundled today.
+
+The contact form validates its fields and posts to `/contact-form`. It shows a
+spinner while submitting and an error on HTTP/network failure or a 15-second
+timeout. Delivery still requires the backend endpoint to be implemented; LinkedIn
+is also available for direct contact. The development-environment chart loads
+real language percentages from `/stats/github/languages` when it enters the viewport.
+GitHub activity requests `/stats/github`, displays returned statistics on success,
+and shows `Offline` on failure or a 15-second timeout. Unfilled skill ratings remain
+`null`, distinct from a rating of zero.
+
+The GitHub backend reads the repository selection directly from
+[`ErwanLucienMMV/config/languages.json`](https://github.com/ErwanLucienMMV/ErwanLucienMMV/blob/main/config/languages.json),
+following the README automation's inclusion/exclusion and fork/archive rules.
+`/stats/github` reports the selected public repository count, authored commits
+on those default branches in the past 365 days, and leading languages by code
+bytes. `/stats/github/languages` adds byte counts and percentages using the
+README's rounding rules. Both endpoints share a six-hour cache and return 503
+if GitHub cannot supply a complete fresh snapshot. The Angular summary consumes
+the first endpoint and the development-environment chart consumes the language
+endpoint. The chart shows visible percentages, an empty state when no languages
+are returned, and `Offline` with retry on failure; it has no sample-data fallback.
+See [the endpoint documentation](docs/endpoints.md#github-activity-statistics)
+for exact scope and error behavior.
+
+Optional `GITHUB_TOKEN` is read only by the backend. Set it in your local ignored
+`.env` before starting Compose to increase GitHub's API rate limit; then recreate
+the NestJS container. Public requests also work without a token, within the shared
+IP rate limit. No credential is embedded in the repository or sent to Angular.
+The coding assistant's GitHub connection does not configure runtime credentials.
+
+Run the backend build and offline tests with:
+
+```sh
+cd backend
+npm test
+```
+
+Tests cover selection rules, byte distribution, commit pagination and time range,
+shared caching, errors/timeouts, and both NestJS HTTP routes with mocked GitHub
+responses.
+
+### Translation and frontend checks
+
+French is the source locale. UI copy uses Angular `i18n` markers and `$localize`,
+with stable message IDs. The extracted XLIFF 2 source catalog is
+`frontend/src/locale/messages.xlf`; English translations live in
+`frontend/src/locale/messages.en.json`. Translation placeholders use Angular's
+`{$PLACEHOLDER_NAME}` format and must be preserved.
+
+The application detects `/fr` or `/en` before bootstrap, sets `<html lang>` and
+page metadata, and loads the English catalog before importing any components.
+Both languages work with the same `ng serve` instance and production build.
+
+```sh
+cd frontend
+npm test
+npm run build
+npm run i18n:extract
+```
+
+After changing UI text, extract the source catalog and update the English JSON
+entries with the same IDs. English projects, journey entries, skills, and document metadata are
+provided in `frontend/public/data/*.en.json`. API content requests receive the
+active locale in `?locale=fr` or `?locale=en`; backend endpoint names remain stable.
+Static assets resolve from `/`, independently of the current page's prefix. Configure
+production hosting to serve `index.html` for all French and English page URLs
+while keeping the API proxy rules documented above. Inter is
+self-hosted, and its license is included in `frontend/public/fonts/LICENSE.txt`.
+
+Unit checks cover HTTP caching/locale/retry, loading and cancellation, project
+filters/pagination, missing versus zero ratings, and document metadata/preview
+handling. The interface also supports a mobile navigation menu, keyboard focus,
+screen-reader loading announcements, and reduced-motion preferences.
