@@ -1,0 +1,32 @@
+name: fullstackportfolio
+
+services:
+  angular:
+    build:
+      context: ./frontend
+    image: fullstackportfolio-angular:22.3.0
+    init: true
+    ports:
+      - "127.0.0.1:4200:4200"
+    environment:
+      NG_CLI_ANALYTICS: "false"
+    volumes:
+      - ./frontend/src:/app/src:ro
+      - ./frontend/angular.json:/app/angular.json:ro
+      - ./frontend/tsconfig.json:/app/tsconfig.json:ro
+
+  nestjs:
+    build:
+      context: ./backend
+    image: fullstackportfolio-nestjs:12.6.0
+    init: true
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      NODE_ENV: development
+      PORT: "3000"
+      TSC_WATCHFILE: UsePolling
+    volumes:
+      - ./backend/src:/app/src:ro
+      - ./backend/nest-cli.json:/app/nest-cli.json:ro
+      - ./backend/tsconfig.json:/app/tsconfig.json:ro
