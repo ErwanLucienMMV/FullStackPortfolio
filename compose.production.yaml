@@ -27,6 +27,8 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+      ssr:
+        condition: service_healthy
     tmpfs:
       - /tmp:rw,noexec,nosuid,size=32m,mode=1777
       - /etc/nginx/conf.d:rw,noexec,nosuid,size=1m,mode=1777
@@ -37,6 +39,20 @@ services:
         read_only: true
         bind:
           create_host_path: false
+  ssr:
+    <<: *runtime
+    image: ${SSR_IMAGE:?Set SSR_IMAGE to the release SSR image digest}
+    environment:
+      NODE_ENV: production
+      PORT: "4000"
+      TLS_DOMAIN: ${TLS_DOMAIN:?Set TLS_DOMAIN to the certificate hostname}
+      PORTFOLIO_API_TARGET: http://backend:3000
+      PORTFOLIO_ASSET_DIR: /app/dist/portfolio/browser
+    depends_on:
+      backend:
+        condition: service_healthy
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m,mode=1777
   backend:
     <<: *runtime
     image: ${BACKEND_IMAGE:?Set BACKEND_IMAGE to the release image digest}

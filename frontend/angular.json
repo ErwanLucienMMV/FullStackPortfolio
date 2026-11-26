@@ -10,7 +10,16 @@
       "root": "",
       "sourceRoot": "src",
       "i18n": {
-        "sourceLocale": "fr"
+        "sourceLocale": {
+          "code": "fr",
+          "subPath": ""
+        },
+        "locales": {
+          "en": {
+            "translation": "src/locale/messages.en.json",
+            "subPath": "en"
+          }
+        }
       },
       "architect": {
         "build": {
@@ -30,17 +39,32 @@
               {
                 "glob": "**/*",
                 "input": "public",
-                "ignore": ["fonts/*.woff2"]
+                "ignore": [
+                  "fonts/*.woff2"
+                ]
               }
-            ]
+            ],
+            "server": "src/main.server.ts",
+            "ssr": {
+              "entry": "src/server.ts"
+            }
           },
           "configurations": {
             "production": {
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "outputMode": "server",
+              "localize": [
+                "fr",
+                "en"
+              ],
+              "i18nMissingTranslation": "error"
             },
             "development": {
               "optimization": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "ssr": false,
+              "server": false,
+              "localize": false
             }
           },
           "defaultConfiguration": "production"

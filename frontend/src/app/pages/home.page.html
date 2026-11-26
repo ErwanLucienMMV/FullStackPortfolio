@@ -44,7 +44,7 @@
 
 <section class="page-section" aria-labelledby="featured-title">
   <div class="section-heading"><p class="eyebrow" i18n="@@featuredEyebrow">03 / Projets à la une</p><h2 id="featured-title" i18n="@@builtTitle">Ce que j’ai construit</h2><p i18n="@@featuredDescription">Une sélection de projets qui démontrent mes compétences techniques.</p></div>
-  @defer (on viewport) { <app-project-collection [preview]="true" /> }
+  @defer (on viewport; hydrate on viewport) { <app-project-collection [preview]="true" /> }
   @placeholder { <app-skeleton kind="projects" /> }
   @loading (after 100ms; minimum 200ms) { <app-skeleton kind="projects" /> }
   @error { <p role="alert" i18n="@@sectionLoadError">Cette section n’a pas pu être chargée. Rechargez la page pour réessayer.</p> }

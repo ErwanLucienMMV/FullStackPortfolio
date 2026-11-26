@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, RESPONSE_INIT } from '@angular/core';
 
 @Component({
   template: '<h1>404</h1>',
@@ -18,4 +18,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotFoundPage {}
+export class NotFoundPage {
+  constructor() {
+    const response = inject(RESPONSE_INIT, { optional: true });
+    if (response) response.status = 404;
+  }
+}

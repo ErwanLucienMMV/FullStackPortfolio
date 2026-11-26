@@ -104,11 +104,12 @@ The six screens are available in French and English:
 Invalid URLs display a centered light-blue 404, preserving the requested URL.
 The FR/EN links switch to the equivalent page, preserving query parameters,
 selected projects, and translated resume/case-study anchors. They reload the page
-to initialize Angular's runtime translations in the chosen language.
+to load the matching localized application and its server-rendered HTML.
 
 Each route loads a separate JavaScript chunk. The
-home-page project collection and language chart, technical skills, and document
-panel additionally load when they enter the viewport. Skeletons cover both lazy
+home-page project collection, technical skills and document panel render on the
+server and hydrate when entering the viewport. The GitHub language chart loads
+in the browser on viewport entry. Skeletons cover both lazy
 code loading and HTTP requests; failed requests have retry controls. Projects
 support category filtering, pagination, empty states, and selectable case studies.
 The project contract is defined in `frontend/src/app/core/project.contract.ts`.
@@ -260,12 +261,16 @@ local servers and document files.
 French is the source locale. UI copy uses Angular `i18n` markers and `$localize`,
 with stable message IDs. The extracted XLIFF 2 source catalog is
 `frontend/src/locale/messages.xlf`; English translations live in
-`frontend/src/locale/messages.en.json`. Translation placeholders use Angular's
+`frontend/src/locale/messages.en.json`, in its `translations` object (standard
+Angular JSON format with `locale: "en"`). Translation placeholders use Angular's
 `{$PLACEHOLDER_NAME}` format and must be preserved.
 
-The application detects `/fr` or `/en` before bootstrap, sets `<html lang>` and
-page metadata, and loads the English catalog before importing any components.
-Both languages work with the same `ng serve` instance and production build.
+Development detects `/fr` or `/en` before bootstrap and loads translations at
+runtime; both languages work with one `ng serve`. Production builds separate
+French/English browser and server bundles using AngularNodeAppEngine and
+RenderMode.Server. Pages include localized metadata, API content and hydration
+state. Hydration reuses the DOM and HTTP responses. Unknown routes return HTTP
+404 with the existing screen. GitHub statistics load after browser rendering.
 
 ```sh
 cd frontend
@@ -274,13 +279,21 @@ npm run build
 npm run i18n:extract
 ```
 
+To preview SSR outside Docker, start the backend on port 3000, build the frontend,
+then run `PORTFOLIO_ASSET_DIR="$PWD/dist/portfolio/browser" npm run serve:ssr` in
+`frontend/`. It listens on port 4000; `PORTFOLIO_API_TARGET` overrides the API URL.
+`ng serve` remains a client-side development server with hot reload. Browser checks
+against a running production stack use `npx playwright install chromium` then
+`npm run test:ssr`; `BASE_URL` overrides `https://localhost:9042`.
+
 After changing UI text, extract the source catalog and update the English JSON
 entries with the same IDs. English projects, journey entries, skills, and document metadata are
 provided in `frontend/public/data/*.en.json`. API content requests receive the
 active locale in `?locale=fr` or `?locale=en`; backend endpoint names remain stable.
-Static assets resolve from `/`, independently of the current page's prefix. Configure
-production hosting to serve `index.html` for all French and English page URLs
-while keeping the API proxy rules documented above. Inter is
+French assets resolve from `/`; English assets resolve from `/en/`. APP_BASE_HREF
+keeps router paths rooted at `/`, avoiding duplicate prefixes. Production Nginx
+serves static assets and proxies pages to Angular SSR, retaining the separate API
+proxy rules documented above. Inter is
 self-hosted, and its license is included in `frontend/public/fonts/LICENSE.txt`.
 
 Unit checks cover HTTP caching/locale/retry, loading and cancellation, project

@@ -40,7 +40,7 @@
 </div>
 <section class="page-section" [id]="links.anchors.resume" aria-labelledby="resume-title">
   <div class="section-heading"><p class="eyebrow" i18n="@@resumeEyebrow">02 / CV</p><h2 id="resume-title" i18n="@@resumeTitle">Mon parcours en un document</h2><p i18n="@@resumeDescription">Retrouvez mes expériences et mes compétences aux formats PDF et DOCX.</p></div>
-  @defer (on viewport) { <app-document-panel /> }
+  @defer (on viewport; hydrate on viewport) { <app-document-panel /> }
   @placeholder { <app-skeleton kind="document" /> }
   @loading (after 100ms; minimum 200ms) { <app-skeleton kind="document" /> }
   @error { <p role="alert" i18n="@@sectionLoadError">Cette section n’a pas pu être chargée. Rechargez la page pour réessayer.</p> }

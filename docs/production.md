@@ -6,6 +6,13 @@ rotating logs, and persistent documents/certificates. Only **TCP 9042** is publi
 Nginx terminates HTTPS and redirects HTTP received on that same port to HTTPS.
 Its upstream removes `/api/` before forwarding requests to the private NestJS API.
 
+The final stack has three services: Nginx serves static assets and proxies page
+URLs to Angular SSR on private port 4000; NestJS remains private on port 3000.
+SSR renders all twelve French/English pages with API content and localized
+metadata. Angular hydrates the HTML and reuses transferred HTTP responses.
+Separate compiled locale bundles isolate concurrent requests. GitHub statistics
+load in the browser so GitHub availability does not block HTML rendering.
+
 ## Install Docker and tools
 
 On the Debian server, install [Docker Engine and Compose from the official repository](https://docs.docker.com/engine/install/debian/).

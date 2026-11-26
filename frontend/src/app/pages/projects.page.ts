@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
-import { loadResource } from '../core/load-resource';
+import { loadBrowserResource, loadResource } from '../core/load-resource';
 import { PortfolioRepository } from '../core/portfolio.repository';
 import { ProjectCollectionComponent } from '../shared/project-collection.component';
 import { LocaleLinks } from '../core/locale-links';
@@ -17,7 +17,7 @@ export class ProjectsPage {
   private readonly repository = inject(PortfolioRepository);
   private readonly route = inject(ActivatedRoute);
   readonly resource = loadResource(() => this.repository.projects());
-  readonly githubResource = loadResource(() => this.repository.githubStats());
+  readonly githubResource = loadBrowserResource(() => this.repository.githubStats());
   readonly requestedProject = toSignal(this.route.queryParamMap.pipe(map(params => params.get('project'))));
   readonly selectedProject = computed(() => {
     const state = this.resource.state();

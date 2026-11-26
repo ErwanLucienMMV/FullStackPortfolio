@@ -5,6 +5,11 @@ upstream portfolio_api {
     server backend:3000 resolve;
 }
 
+upstream portfolio_ssr {
+    zone portfolio_ssr 64k;
+    server ssr:4000 resolve;
+}
+
 server {
     listen 8080 ssl;
     listen [::]:8080 ssl;

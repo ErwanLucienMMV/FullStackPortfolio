@@ -11,7 +11,7 @@
 <section class="page-section" aria-labelledby="technical-skills-title">
   <div class="section-heading"><p class="eyebrow" i18n="@@technicalSkillsEyebrow">03 / Autres technologies</p><h2 id="technical-skills-title" i18n="@@technicalSkillsTitle">Compétences techniques</h2></div>
   <p class="accent-text assessment-note" i18n="@@assessmentNote">Autoévaluation · Profils à compléter</p>
-  @defer (on viewport) { <app-technical-skills /> }
+  @defer (on viewport; hydrate on viewport) { <app-technical-skills /> }
   @placeholder { <app-skeleton kind="skills" /> }
   @loading (after 100ms; minimum 200ms) { <app-skeleton kind="skills" /> }
   @error { <p role="alert" i18n="@@sectionLoadError">Cette section n’a pas pu être chargée. Rechargez la page pour réessayer.</p> }

@@ -1,10 +1,25 @@
 FROM docker.io/library/node:26.13.1-bookworm-slim AS build
-ENV NG_CLI_ANALYTICS=false
+ENV NG_CLI_ANALYTICS=false NG_BUILD_MAX_WORKERS=2
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 RUN npm run build
+
+FROM build AS runtime-dependencies
+RUN npm prune --omit=dev
+
+FROM docker.io/library/node:26.13.1-bookworm-slim AS ssr
+ENV NODE_ENV=production PORT=4000 PORTFOLIO_ASSET_DIR=/app/dist/portfolio/browser
+WORKDIR /app
+COPY --from=runtime-dependencies --chown=node:node /app/node_modules ./node_modules
+COPY --from=build --chown=node:node /app/dist ./dist
+COPY --chown=node:node package.json ./
+USER node
+EXPOSE 4000
+HEALTHCHECK --interval=15s --timeout=5s --start-period=15s --retries=3 \
+  CMD node -e "fetch('http://127.0.0.1:4000/healthz', {signal: AbortSignal.timeout(4000)}).then(r => {if (!r.ok) process.exit(1)}).catch(() => process.exit(1))"
+CMD ["node", "dist/portfolio/server/server.mjs"]
 
 FROM docker.io/nginxinc/nginx-unprivileged:stable-alpine@sha256:f5116ed4606f3eb015dd4a8e28cb9b351476dc0ad4bc6e9f93b19cec130cdf03 AS production
 COPY --from=build /app/dist/portfolio/browser /usr/share/nginx/html

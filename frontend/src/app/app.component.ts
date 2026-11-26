@@ -29,7 +29,7 @@ export class AppComponent {
     filter(event => event instanceof NavigationStart || event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError),
     tap(() => this.menuOpen.set(false)),
     map(event => event instanceof NavigationStart ? 'loading' : event instanceof NavigationError ? 'error' : 'ready'),
-  ), { initialValue: 'loading' });
+  ), { initialValue: 'ready' });
 
   reload() { this.document.defaultView?.location.reload(); }
   languageHref(locale: SiteLocale) { return languageUrl(this.currentUrl(), locale); }

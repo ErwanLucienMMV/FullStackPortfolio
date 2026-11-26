@@ -4,15 +4,25 @@
     "module": "preserve",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "lib": ["ES2022", "DOM"],
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
     "strict": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "types": ["@angular/localize"]
+    "types": [
+      "@angular/localize",
+      "node"
+    ]
   },
   "angularCompilerOptions": {
     "strictTemplates": true
   },
-  "files": ["src/main.ts"]
+  "files": [
+    "src/main.ts",
+    "src/main.server.ts",
+    "src/server.ts"
+  ]
 }
