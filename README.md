@@ -30,6 +30,10 @@ Framework packages are pinned in their respective `package.json` and
 
 ## Run
 
+For production on Debian 13, Nginx HTTPS on port **9042**, certificates and
+deployment/rollback instructions, see [the production runbook](docs/production.md).
+Production uses separate Dockerfiles and standalone `compose.production.yaml`.
+
 Use the Makefile to build, start in the background, and stop the stack:
 
 ```sh

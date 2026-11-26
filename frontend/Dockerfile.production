@@ -1,0 +1,16 @@
+FROM docker.io/library/node:26.13.1-bookworm-slim AS build
+ENV NG_CLI_ANALYTICS=false
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM docker.io/nginxinc/nginx-unprivileged:stable-alpine@sha256:f5116ed4606f3eb015dd4a8e28cb9b351476dc0ad4bc6e9f93b19cec130cdf03 AS production
+COPY --from=build /app/dist/portfolio/browser /usr/share/nginx/html
+COPY nginx/default.conf.template /etc/nginx/templates/default.conf.template
+COPY nginx/routes.conf /etc/nginx/portfolio-routes.conf
+ENV NGINX_RESOLVER=127.0.0.11
+EXPOSE 8080
+HEALTHCHECK --interval=15s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget --no-check-certificate -q -O /dev/null https://127.0.0.1:8080/healthz || exit 1

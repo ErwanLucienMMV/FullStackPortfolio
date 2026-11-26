@@ -1,0 +1,57 @@
+name: fullstackportfolio
+
+x-runtime: &runtime
+  restart: unless-stopped
+  init: true
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "3"
+
+services:
+  frontend:
+    <<: *runtime
+    image: ${FRONTEND_IMAGE:?Set FRONTEND_IMAGE to the release image digest}
+    ports:
+      - "${BIND_ADDRESS:-0.0.0.0}:${PROXY_PORT:-9042}:8080"
+    environment:
+      NGINX_RESOLVER: ${NGINX_RESOLVER:-127.0.0.11}
+      TLS_DOMAIN: ${TLS_DOMAIN:?Set TLS_DOMAIN to the certificate hostname}
+      PROXY_PORT: ${PROXY_PORT:-9042}
+    labels:
+      io.fullstackportfolio.public-url: ${PUBLIC_URL:?Set PUBLIC_URL including port 9042}
+    depends_on:
+      backend:
+        condition: service_healthy
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m,mode=1777
+      - /etc/nginx/conf.d:rw,noexec,nosuid,size=1m,mode=1777
+    volumes:
+      - type: bind
+        source: ${DEPLOY_ROOT:?Set DEPLOY_ROOT}/tls
+        target: /etc/nginx/tls
+        read_only: true
+        bind:
+          create_host_path: false
+  backend:
+    <<: *runtime
+    image: ${BACKEND_IMAGE:?Set BACKEND_IMAGE to the release image digest}
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      PORTFOLIO_DOCUMENTS_DIR: /app/documents
+    env_file:
+      - ${DEPLOY_ROOT:?Set DEPLOY_ROOT}/backend.env
+    volumes:
+      - type: bind
+        source: ${DEPLOY_ROOT}/documents
+        target: /app/documents
+        read_only: true
+        bind:
+          create_host_path: false
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m,mode=1777

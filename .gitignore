@@ -7,3 +7,10 @@
 npm-debug.log*
 backend/documents/**/*.pdf
 backend/documents/**/*.docx
+**/__pycache__/
+deploy/local/
+backend.env
+**/privkey.pem
+**/fullchain.pem
+/portfolio-deploy-key*
+/portfolio-certificate.pem
