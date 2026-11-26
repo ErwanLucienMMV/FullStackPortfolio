@@ -1,0 +1,298 @@
+name: CI and deployment
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+env:
+  NG_BUILD_MAX_WORKERS: '2'
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  checks:
+    name: Content and deployment checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 26.13.1
+      - run: node scripts/check-content.mjs
+      - run: python3 -m unittest discover -s deploy/tests -v
+      - run: shellcheck deploy/*.sh
+      - name: Validate production Compose
+        env:
+          FRONTEND_IMAGE: portfolio-frontend:test
+          SSR_IMAGE: portfolio-ssr:test
+          BACKEND_IMAGE: portfolio-backend:test
+          DEPLOY_ROOT: ${{ runner.temp }}/portfolio-config
+          TLS_DOMAIN: localhost
+          PUBLIC_URL: https://localhost:9042
+        run: |
+          mkdir -p "$DEPLOY_ROOT"
+          cp deploy/backend.env.example "$DEPLOY_ROOT/backend.env"
+          docker compose -f compose.production.yaml config --quiet
+
+  test:
+    name: Test ${{ matrix.service }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [backend, frontend]
+    defaults:
+      run:
+        working-directory: ${{ matrix.service }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 26.13.1
+          cache: npm
+          cache-dependency-path: ${{ matrix.service }}/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - if: matrix.service == 'frontend'
+        run: npm run build
+
+  production-smoke:
+    name: Test production containers
+    needs: [checks, test]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      DEPLOY_ROOT: /tmp/portfolio-production
+      FRONTEND_IMAGE: portfolio-frontend:test
+      SSR_IMAGE: portfolio-ssr:test
+      BACKEND_IMAGE: portfolio-backend:test
+      TLS_DOMAIN: localhost
+      PUBLIC_URL: https://localhost:9042
+      BIND_ADDRESS: 127.0.0.1
+      PROXY_PORT: '9042'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Prepare server configuration and certificate
+        run: |
+          mkdir -p "$DEPLOY_ROOT/documents/fr" "$DEPLOY_ROOT/documents/en"
+          cp deploy/backend.env.example "$DEPLOY_ROOT/backend.env"
+          bash deploy/generate-certificate.sh "$DEPLOY_ROOT"
+      # Build each image in sequence. Never launch competing background builds.
+      - run: docker build -f backend/Dockerfile.production -t "$BACKEND_IMAGE" backend
+      - run: docker build -f frontend/Dockerfile.production -t "$FRONTEND_IMAGE" frontend
+      - run: docker build --target ssr -f frontend/Dockerfile.production -t "$SSR_IMAGE" frontend
+      - run: docker compose -f compose.production.yaml up -d --wait --wait-timeout 120
+      - run: python3 deploy/smoke.py "$PUBLIC_URL" --ca-file "$DEPLOY_ROOT/tls/fullchain.pem"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 26.13.1
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Verify browser hydration and interaction
+        working-directory: frontend
+        env:
+          BASE_URL: ${{ env.PUBLIC_URL }}
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npm run test:ssr
+      - name: Verify non-root processes and backend DNS recovery
+        run: |
+          test "$(docker compose -f compose.production.yaml exec -T backend id -u)" != 0
+          test "$(docker compose -f compose.production.yaml exec -T frontend id -u)" != 0
+          test "$(docker compose -f compose.production.yaml exec -T ssr id -u)" != 0
+          docker compose -f compose.production.yaml up -d --force-recreate --no-deps --wait backend
+          sleep 12
+          python3 deploy/smoke.py "$PUBLIC_URL" --ca-file "$DEPLOY_ROOT/tls/fullchain.pem"
+      - if: failure()
+        run: docker compose -f compose.production.yaml logs --tail 100
+      - if: always()
+        run: docker compose -f compose.production.yaml down --volumes
+
+  publish:
+    name: Publish release images
+    needs: production-smoke
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Choose lowercase image names
+        id: names
+        env:
+          REPOSITORY: ${{ github.repository }}
+        run: echo "base=ghcr.io/${REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        id: backend
+        with:
+          context: backend
+          file: backend/Dockerfile.production
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.names.outputs.base }}-backend:${{ github.sha }}
+          labels: org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          cache-from: type=gha,scope=backend
+          cache-to: type=gha,mode=max,scope=backend
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        id: frontend
+        with:
+          context: frontend
+          file: frontend/Dockerfile.production
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.names.outputs.base }}-frontend:${{ github.sha }}
+          labels: org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          cache-from: type=gha,scope=frontend
+          cache-to: type=gha,mode=max,scope=frontend
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        id: ssr
+        with:
+          context: frontend
+          file: frontend/Dockerfile.production
+          target: ssr
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.names.outputs.base }}-ssr:${{ github.sha }}
+          labels: org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          cache-from: |
+            type=gha,scope=frontend
+            type=gha,scope=ssr
+          cache-to: type=gha,mode=max,scope=ssr
+      - name: Package immutable release
+        env:
+          IMAGE_BASE: ${{ steps.names.outputs.base }}
+          BACKEND_DIGEST: ${{ steps.backend.outputs.digest }}
+          FRONTEND_DIGEST: ${{ steps.frontend.outputs.digest }}
+          SSR_DIGEST: ${{ steps.ssr.outputs.digest }}
+        run: |
+          mkdir release
+          cp compose.production.yaml deploy/deploy.sh deploy/smoke.py release/
+          printf 'BACKEND_IMAGE=%s-backend@%s\nFRONTEND_IMAGE=%s-frontend@%s\nSSR_IMAGE=%s-ssr@%s\n' \
+            "$IMAGE_BASE" "$BACKEND_DIGEST" "$IMAGE_BASE" "$FRONTEND_DIGEST" \
+            "$IMAGE_BASE" "$SSR_DIGEST" > release/release.env
+          printf '%s\n' "$GITHUB_SHA" > release/commit.txt
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: production-release
+          path: release/
+          retention-days: 30
+          if-no-files-found: error
+
+  verify-release:
+    name: Verify published images (${{ matrix.runner }})
+    needs: publish
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      packages: read
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm]
+    env:
+      DEPLOY_ROOT: /tmp/portfolio-server
+      TLS_DOMAIN: localhost
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: production-release
+          path: ${{ env.DEPLOY_ROOT }}/releases/test
+      - uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy exact published images
+        run: |
+          mkdir -p "$DEPLOY_ROOT/documents/fr" "$DEPLOY_ROOT/documents/en"
+          cp deploy/backend.env.example "$DEPLOY_ROOT/backend.env"
+          printf 'TLS_DOMAIN=localhost\nPUBLIC_URL=https://localhost:9042\nBIND_ADDRESS=127.0.0.1\nPROXY_PORT=9042\n' > "$DEPLOY_ROOT/.env"
+          bash deploy/generate-certificate.sh "$DEPLOY_ROOT"
+          bash "$DEPLOY_ROOT/releases/test/deploy.sh" "$DEPLOY_ROOT" "$DEPLOY_ROOT/releases/test"
+      - if: failure()
+        run: |
+          docker compose --env-file "$DEPLOY_ROOT/.env" --env-file "$DEPLOY_ROOT/releases/test/release.env" \
+            -f "$DEPLOY_ROOT/releases/test/compose.production.yaml" logs --tail 100
+      - if: always()
+        run: |
+          docker compose --env-file "$DEPLOY_ROOT/.env" --env-file "$DEPLOY_ROOT/releases/test/release.env" \
+            -f "$DEPLOY_ROOT/releases/test/compose.production.yaml" down --volumes
+
+  deploy:
+    name: Deploy production
+    needs: verify-release
+    if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment: production
+    concurrency:
+      group: production-deployment
+      cancel-in-progress: false
+    steps:
+      - name: Skip superseded commits
+        id: latest
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          latest=$(gh api "repos/$GITHUB_REPOSITORY/commits/master" --jq .sha)
+          if [[ "$latest" == "$GITHUB_SHA" ]]; then
+            echo 'deploy=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'Newer commit exists on master; skipping this deployment.'
+          fi
+      - if: steps.latest.outputs.deploy == 'true'
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: production-release
+          path: release
+      - name: Transfer and activate release
+        if: steps.latest.outputs.deploy == 'true'
+        env:
+          DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+          DEPLOY_PORT: ${{ vars.DEPLOY_PORT || '22' }}
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '/opt/fullstackportfolio' }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          set -Eeuo pipefail
+          [[ "$DEPLOY_HOST" =~ ^[a-zA-Z0-9][a-zA-Z0-9.-]*$ ]]
+          [[ "$DEPLOY_USER" =~ ^[a-z_][a-z0-9_-]*$ ]]
+          [[ "$DEPLOY_PORT" =~ ^[0-9]+$ ]]
+          [[ "$DEPLOY_PATH" =~ ^/[a-zA-Z0-9/_-]+$ && "$DEPLOY_PATH" != '/' ]]
+          umask 077
+          key="$RUNNER_TEMP/deploy-key"
+          known_hosts="$RUNNER_TEMP/deploy-known-hosts"
+          trap 'rm -f "$key" "$known_hosts"' EXIT
+          printf '%s\n' "$DEPLOY_SSH_KEY" > "$key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$known_hosts"
+          ssh-keygen -y -f "$key" >/dev/null
+          options=(-i "$key" -o BatchMode=yes -o StrictHostKeyChecking=yes -o "UserKnownHostsFile=$known_hosts" -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=4)
+          destination="$DEPLOY_USER@$DEPLOY_HOST"
+          release_id="$GITHUB_SHA-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          remote_release="$DEPLOY_PATH/releases/$release_id"
+          tar -czf "$RUNNER_TEMP/release.tgz" -C release .
+          ssh "${options[@]}" -p "$DEPLOY_PORT" "$destination" "install -d -m 700 '$remote_release'"
+          scp "${options[@]}" -P "$DEPLOY_PORT" "$RUNNER_TEMP/release.tgz" "$destination:$remote_release/release.tgz"
+          ssh "${options[@]}" -p "$DEPLOY_PORT" "$destination" \
+            "cd '$remote_release' && tar -xzf release.tgz && rm release.tgz && bash deploy.sh '$DEPLOY_PATH' '$remote_release'"

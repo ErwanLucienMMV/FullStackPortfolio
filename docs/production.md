@@ -115,6 +115,70 @@ Optional public documents go in `documents/fr/` and `documents/en/` as `resume.p
 `resume.docx`, and `portfolio.pdf`. Set directories to 755 and files to 644 for
 container read access. Documents are mounted read-only and survive releases.
 
+## Configure GitHub Actions
+
+The repository's default branch is **master**; the workflow follows it. Pull
+requests run validation; pushes to master also publish three amd64/arm64 images:
+
+```text
+ghcr.io/erwanlucienmmv/fullstackportfolio-backend
+ghcr.io/erwanlucienmmv/fullstackportfolio-frontend
+ghcr.io/erwanlucienmmv/fullstackportfolio-ssr
+```
+
+For private packages, log in to GHCR **as portfolio-deploy** using a classic token
+with `read:packages` and access to these packages (public packages need no login):
+
+```sh
+read -rsp 'GHCR read token: ' registry_token; echo
+printf '%s' "$registry_token" | docker login ghcr.io -u YOUR_GITHUB_LOGIN --password-stdin
+unset registry_token
+```
+
+Registry pull authentication is separate from the optional runtime token in
+`backend.env`. The workflow publishes using GitHub's built-in token with package
+write permission; no custom registry write secret is required. Existing packages
+must grant the repository's Actions token write access.
+
+Create a GitHub Actions environment named **production**, restricted to master.
+Set its variables:
+
+| Variable | Value |
+| --- | --- |
+| `DEPLOY_HOST` | Reachable server IPv4 address or DNS hostname |
+| `DEPLOY_USER` | `portfolio-deploy` |
+| `DEPLOY_PORT` | SSH port, default `22` |
+| `DEPLOY_PATH` | `/opt/fullstackportfolio` |
+
+Set environment secrets `DEPLOY_SSH_KEY` (the complete dedicated private key) and
+`DEPLOY_KNOWN_HOSTS` (the server's verified SSH known-hosts line). Collect the line
+with `ssh-keyscan -p SSH_PORT SERVER_IP` on your workstation and compare its
+fingerprint with `sudo ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub` from a
+trusted server console. Strict host-key checking is enforced.
+
+After server setup, add **repository variable** `DEPLOY_ENABLED=true`. Keep this
+at repository scope: it decides whether the environment job starts. Push these
+commits to master, or manually run **CI and deployment** on master. The pipeline
+does not write to the production server until deployment is enabled. The SSH
+endpoint must be reachable from GitHub-hosted runners; a private LAN requires a
+runner or VPN route into that network. The template web domain need not resolve
+on GitHub because server smoke checks run over SSH on the server itself.
+
+The pipeline validates content/fallback parity, unit tests, deployment regression
+tests and shell/Compose configuration. Production builds run one image at a time.
+It checks all twelve rendered pages, TLS and same-port redirection, concurrent
+French/English requests, assets, API validation, HTTP 404s and query-preserving
+redirects. Chromium checks no-JavaScript content, hydration DOM reuse, HTTP transfer
+caching, navigation, mobile menus and filters. Recreating the backend verifies
+Nginx resolves changed container addresses. Published image digests are verified
+on native amd64 and arm64 runners before SSH deployment.
+
+Suggested required pull-request checks: **Content and deployment checks**, **Test
+backend**, **Test frontend**, **Test production containers**. Deployment concurrency
+is serialized, and superseded commits are skipped. Release artifacts retain exact
+digests and full Compose/scripts for rollback. Actions and Nginx are pinned to
+verified commits/digests; update those pins deliberately during maintenance.
+
 ## Operate and roll back
 
 A release directory contains `compose.production.yaml`, `release.env` with exact
@@ -158,3 +222,8 @@ recreate the frontend after changing its configured domain.
 References: [unprivileged Nginx](https://github.com/nginx/docker-nginx-unprivileged),
 [same-port HTTP error 497](https://nginx.org/en/docs/http/ngx_http_ssl_module.html#errors),
 [production Compose](https://docs.docker.com/compose/how-tos/production/).
+
+For low-impact local verification, use a scratch checkout and npm cache under
+`/tmp`, two Angular build workers, and serial image builds. Never launch parallel
+Podman builds against the workspace image store. If testing containers locally,
+use an explicitly isolated temporary graph/run root and check available space.
