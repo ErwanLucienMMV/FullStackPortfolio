@@ -1,5 +1,7 @@
 # Debian 13 production deployment
 
+See [restoration validation results](validation.md) for the completed local checks.
+
 Production uses standalone `compose.production.yaml`, separate multi-stage
 Dockerfiles, non-root processes, read-only container filesystems, health checks,
 rotating logs, and persistent documents/certificates. Only **TCP 9042** is published.
