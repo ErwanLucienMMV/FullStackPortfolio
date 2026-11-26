@@ -46,6 +46,28 @@ UFW INPUT rules alone do not constrain published container ports. No ports 80 or
 443 are required for this self-signed setup. Nginx runs in a container, so no host
 Nginx installation is needed.
 
+### UFW
+
+Keep your existing SSH session open. Replace `22` below if SSH uses another port,
+and retain any existing source restrictions on your SSH rule:
+
+```sh
+sudo ufw allow 22/tcp comment 'SSH'
+sudo ufw allow 9042/tcp comment 'Portfolio HTTPS and same-port HTTP redirect'
+sudo ufw status verbose
+```
+
+If UFW is inactive, enable it with `sudo ufw enable` only after confirming that
+your actual SSH port is allowed. No UFW rules for 3000, 4000, 80, or 443 are needed
+for this stack. Open the same required ports in any provider firewall or router.
+
+[Docker-published ports bypass ordinary UFW filtering](https://docs.docker.com/engine/network/packet-filtering-firewalls/#docker-and-ufw).
+This stack intentionally publishes 9042 on all IPv4 interfaces by default. The
+allow rule records that intent; a later `ufw deny 9042` will not reliably close
+the Docker port. Use a provider firewall or Docker forwarding rules for source-IP
+restrictions, or set `BIND_ADDRESS=127.0.0.1` for local-only access. Keep Docker's
+own firewall management enabled.
+
 ## Create the deployment account
 
 ```sh
