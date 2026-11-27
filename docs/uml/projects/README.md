@@ -2,6 +2,7 @@
 
 Each diagram records the reviewed source commit and distinguishes implemented code from plans.
 
+- [42matcha](42matcha.md)
 - [atlas-dominion](atlas-dominion.md)
 - [dr-quinn](dr-quinn.md)
 - [ft-irc](ft-irc.md)

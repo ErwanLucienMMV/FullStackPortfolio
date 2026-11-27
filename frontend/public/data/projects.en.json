@@ -355,7 +355,18 @@
       "WebSockets",
       "Docker"
     ],
-    "featured": true
+    "featured": true,
+    "caseStudy": {
+      "summary": "An Angular and Java dating application with profiles, location-based suggestions, mutual matches, messaging, and real-time notifications.",
+      "contributions": [],
+      "architecture": [
+        "Angular → authenticated Spark Java HTTP routes",
+        "JDBC/PostgreSQL: mutual relation, pair locking and transactional writes",
+        "After commit, Live WebSocket invalidates views and clients reload over HTTP"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/42matcha",
+      "diagramUrl": "/api/diagrams/42matcha.svg"
+    }
   },
   {
     "id": "42learn2slither",
