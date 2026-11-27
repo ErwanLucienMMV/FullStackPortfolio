@@ -223,7 +223,18 @@
       "POSIX",
       "Make"
     ],
-    "featured": true
+    "featured": true,
+    "caseStudy": {
+      "summary": "A Bash-inspired Unix shell with command parsing, environment expansion, built-ins, pipes, redirections, and signal handling.",
+      "contributions": [],
+      "architecture": [
+        "Readline → parsing and sanitize → t_parser list",
+        "Variable expansion followed by redirection and heredoc preparation",
+        "Standalone builtin in parent or fork/pipe execution, then descriptor restoration"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/ft_minishell",
+      "diagramUrl": "/api/diagrams/ft-minishell.svg"
+    }
   },
   {
     "id": "dr-quinn",

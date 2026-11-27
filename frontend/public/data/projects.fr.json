@@ -223,7 +223,18 @@
       "POSIX",
       "Make"
     ],
-    "featured": true
+    "featured": true,
+    "caseStudy": {
+      "summary": "Shell Unix inspiré de Bash : analyse des commandes, variables d’environnement, commandes internes, pipes, redirections et gestion des signaux.",
+      "contributions": [],
+      "architecture": [
+        "Readline → parsing et sanitize → liste t_parser",
+        "Expansion des variables puis préparation des redirections et heredocs",
+        "Builtin seul dans le parent ou exécution fork/pipe, restauration des descripteurs"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/ft_minishell",
+      "diagramUrl": "/api/diagrams/ft-minishell.svg"
+    }
   },
   {
     "id": "dr-quinn",
