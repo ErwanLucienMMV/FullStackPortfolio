@@ -60,12 +60,12 @@ test('portfolio routes serve localized editable content and real document files'
     assert.equal((await browser('/api/diagrams/unknown.svg')).status, 404);
   });
 
-  await t.test('every published project diagram is served through the API in both locales', async () => {
+  await t.test('every catalog project has a diagram served through the API in both locales', async () => {
     for (const locale of ['fr', 'en']) {
       const projects = await (await browser(`/api/projets?locale=${locale}`)).json();
-      for (const project of projects.filter(project => project.caseStudy?.diagramUrl)) {
+      for (const project of projects) {
         const url = `/api/diagrams/${project.id}.svg`;
-        assert.equal(project.caseStudy.diagramUrl, url);
+        assert.equal(project.caseStudy?.diagramUrl, url, project.id);
         const response = await browser(url);
         assert.equal(response.status, 200, project.id);
         assert.equal(response.headers.get('content-type'), 'image/svg+xml');

@@ -412,6 +412,17 @@
       "SQL",
       "JavaScript",
       "Docker"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "Planning a PHP photo-compositing application: guides for webcam capture, image composition, a gallery, and containerized infrastructure; the application is still to be built.",
+      "contributions": [],
+      "architecture": [
+        "Proposed design — application not implemented",
+        "Browser → PHP controller: session, CSRF, source and allowed overlay",
+        "Server GD composition, private storage and PDO metadata: planned steps"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/42camagru",
+      "diagramUrl": "/api/diagrams/42camagru.svg"
+    }
   }
 ]

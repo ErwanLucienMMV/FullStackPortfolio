@@ -1,5 +1,9 @@
 # Repository UML diagrams
 
+For diagrams of the other catalog repositories, see the
+[source-reviewed project UML index](uml/projects/README.md). Each project view
+records the source commit, inspected files, portfolio URLs, and API image URL.
+
 These diagrams describe the current implementation in `frontend/src`,
 `backend/src`, and `compose.production.yaml`. Open this file on GitHub or in a
 Markdown viewer with Mermaid support to see the graphs. Standalone SVG copies

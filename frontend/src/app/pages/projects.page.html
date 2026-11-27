@@ -10,10 +10,13 @@
           @for (step of study.architecture; track step; let first = $first) {
             @if (first) { <h3>{{ step }}</h3> } @else { <p><span aria-hidden="true">↓ &nbsp;</span>{{ step }}</p> }
           }
-          <p class="architecture-note" i18n="@@architectureNote">Communication inter-services, observabilité et déploiement conteneurisé.</p>
+          @if (project.id === 'ft-transcendance') { <p class="architecture-note" i18n="@@architectureNote">Communication inter-services, observabilité et déploiement conteneurisé.</p> }
         </article>
-        <article class="panel"><p class="eyebrow" i18n="@@contributions">Mes contributions</p>
-          <ul class="contribution-list">@for (contribution of study.contributions; track contribution) { <li>{{ contribution }}</li> }</ul>
+        <article class="panel">
+          @if (study.contributions.length) {
+            <p class="eyebrow" i18n="@@contributions">Mes contributions</p>
+            <ul class="contribution-list">@for (contribution of study.contributions; track contribution) { <li>{{ contribution }}</li> }</ul>
+          }
           @if (study.repositoryUrl) {
             <a class="button button-primary" [href]="study.repositoryUrl" target="_blank" rel="noopener noreferrer" i18n="@@viewRepository">Voir le dépôt GitHub <span aria-hidden="true">↗</span></a>
           } @else {

@@ -412,6 +412,17 @@
       "SQL",
       "JavaScript",
       "Docker"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "Préparation d’une application de photomontage en PHP : guides pour la capture webcam, la composition d’images, la galerie et une infrastructure conteneurisée ; application à réaliser.",
+      "contributions": [],
+      "architecture": [
+        "Conception proposée — application non implémentée",
+        "Navigateur → contrôleur PHP : session, CSRF, source et overlay autorisé",
+        "Composition serveur GD, stockage privé et métadonnées via PDO : étapes prévues"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/42camagru",
+      "diagramUrl": "/api/diagrams/42camagru.svg"
+    }
   }
 ]

@@ -60,25 +60,30 @@ try {
       document.querySelector('.filter-button.selected')?.textContent?.replace(/\s/g, '') === 'DevOps' &&
       document.querySelector('app-project-collection .collection-content')?.getAttribute('aria-busy') === 'false');
     assert.ok(await page.locator('.project-card').count() > 0);
-    await page.goto(base + projectsPath + '?project=full-stack-portfolio');
-    await page.locator('#case-study-title').waitFor();
-    assert.equal(await page.locator('#case-study-title').innerText(), 'FullStackPortfolio');
-    const diagram = page.locator('.architecture-image');
-    await diagram.scrollIntoViewIfNeeded();
-    await page.waitForFunction(() => {
-      const image = document.querySelector('.architecture-image');
-      return image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0;
-    });
-    const diagramPath = '/api/diagrams/full-stack-portfolio.svg';
-    assert.equal(await diagram.getAttribute('src'), diagramPath);
-    assert.equal(await diagram.locator('..').getAttribute('href'), diagramPath);
-    assert.equal(await diagram.locator('..').getAttribute('target'), '_blank');
-    const svg = await context.request.get(base + diagramPath);
-    assert.equal(svg.status(), 200);
-    assert.match(svg.headers()['content-type'], /^image\/svg\+xml/);
-    assert.match(await svg.text(), /<svg\s/);
+    const catalog = await context.request.get(base + '/api/projets?locale=' + locale);
+    assert.equal(catalog.status(), 200);
+    for (const project of await catalog.json()) {
+      await page.goto(base + projectsPath + '?project=' + encodeURIComponent(project.id));
+      await page.locator('#case-study-title').waitFor();
+      assert.equal(await page.locator('#case-study-title').innerText(), project.name);
+      const diagram = page.locator('.architecture-image');
+      await diagram.scrollIntoViewIfNeeded();
+      await page.waitForFunction(() => {
+        const image = document.querySelector('.architecture-image');
+        return image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0;
+      });
+      const diagramPath = `/api/diagrams/${project.id}.svg`;
+      assert.equal(project.caseStudy?.diagramUrl, diagramPath);
+      assert.equal(await diagram.getAttribute('src'), diagramPath);
+      assert.equal(await diagram.locator('..').getAttribute('href'), diagramPath);
+      assert.equal(await diagram.locator('..').getAttribute('target'), '_blank');
+      const svg = await context.request.get(base + diagramPath);
+      assert.equal(svg.status(), 200);
+      assert.match(svg.headers()['content-type'], /^image\/svg\+xml/);
+      assert.match(await svg.text(), /<svg\s/);
+    }
     assert.deepEqual(errors, [], `${locale}: hydration/navigation errors`);
     await context.close();
   }
-  console.log('SSR browser checks passed: no-JS content, DOM reuse, transfer cache, both locales, navigation, menus, filters, API-served portfolio diagram.');
+  console.log('SSR browser checks passed: no-JS content, DOM reuse, transfer cache, both locales, navigation, menus, filters, API-served diagrams for every project.');
 } finally { await browser.close(); }
