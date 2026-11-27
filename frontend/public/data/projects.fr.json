@@ -168,7 +168,18 @@
       "C",
       "Algorithms",
       "Make"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "Tri d’entiers avec deux piles et un jeu d’opérations limité, en optimisant le coût des déplacements et des rotations avec l’algorithme Turk.",
+      "contributions": [],
+      "architecture": [
+        "Arguments validés → liste chaînée t_stack",
+        "turk_sort choisit les transferts par coût de déplacement entre A et B",
+        "Petites piles triées puis réinsertion, émission des instructions push/swap/rotation"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/mypushswap",
+      "diagramUrl": "/api/diagrams/mypushswap.svg"
+    }
   },
   {
     "id": "minirt",

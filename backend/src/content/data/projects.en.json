@@ -168,7 +168,18 @@
       "C",
       "Algorithms",
       "Make"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "Sort integers using two stacks and a restricted instruction set, optimizing move and rotation costs with the Turk algorithm.",
+      "contributions": [],
+      "architecture": [
+        "Validated arguments → t_stack linked list",
+        "turk_sort chooses transfers by movement cost between A and B",
+        "Small-stack sorting and reinsertion emit push/swap/rotation instructions"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/mypushswap",
+      "diagramUrl": "/api/diagrams/mypushswap.svg"
+    }
   },
   {
     "id": "minirt",
