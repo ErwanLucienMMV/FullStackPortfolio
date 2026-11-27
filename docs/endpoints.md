@@ -22,6 +22,7 @@ For the endpoints documented here, the proxy removes `/api` before forwarding:
 | --- | --- |
 | `GET /api/projets` | `GET /projets` |
 | `GET /api/projets/<category>` | `GET /projets/<category>` |
+| `GET /api/diagrams/full-stack-portfolio.svg` | `GET /diagrams/full-stack-portfolio.svg` |
 | `GET /api/parcours` | `GET /parcours` |
 | `GET /api/skills` | `GET /skills` |
 | `GET /api/documents` | `GET /documents` |
@@ -137,6 +138,25 @@ error, invalid JSON response, or a 15-second timeout triggers the fallback in
 A successful empty array does not trigger sample data. If the fallback also fails,
 an error and retry button appear. Successful API responses are cached for the
 application session; API errors are not cached as successful fallback responses.
+
+### Portfolio architecture diagram
+
+The `full-stack-portfolio` project includes a localized case study whose
+`diagramUrl` is `/api/diagrams/full-stack-portfolio.svg`. It appears on
+`/fr/projets?project=full-stack-portfolio` and
+`/en/projects?project=full-stack-portfolio`. Selecting the diagram opens the SVG
+at full size in a new tab.
+
+`GET /diagrams/full-stack-portfolio.svg` serves the generated production
+architecture overview as `image/svg+xml` with inline disposition and `nosniff`.
+The same SVG is used by both languages. The asset is bundled from
+`backend/src/content/diagrams/full-stack-portfolio.svg` into
+`dist/content/diagrams` by Nest, so development and production images serve it
+without access to the repository's `docs` directory. Keep this bundled copy in
+sync with `docs/uml/production-deployment-overview.svg` when regenerating it.
+An unavailable bundled file returns `503`; other diagram paths return `404`.
+The development proxy includes `diagrams` in its API rewrite, and production
+Nginx gives `/api/` priority over static SVG routing.
 
 ### Current project catalog
 

@@ -3,6 +3,9 @@
 An Angular portfolio based on the supplied Figma PNG export, with a separate
 NestJS API and Docker Compose for local development.
 
+See [the UML diagrams](docs/uml.md) for backend/frontend classes, content
+contracts, request sequences, loading states, and the production deployment.
+
 Versions verified on 2026-11-24:
 
 | Dependency | Exact version |

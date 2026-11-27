@@ -21,7 +21,7 @@
           }
         </article>
         <article class="panel case-note"><h3 class="small-accent-heading" i18n="@@architectureDiagram">Architecture — Diagramme UML</h3>
-          @if (study.diagramUrl) { <img class="architecture-image" [src]="study.diagramUrl" [alt]="project.name" loading="lazy" decoding="async"> }
+          @if (study.diagramUrl) { <a [href]="study.diagramUrl" target="_blank" rel="noopener noreferrer"><img class="architecture-image" [src]="study.diagramUrl" [alt]="project.name" loading="lazy" decoding="async"></a> }
           @else { <p i18n="@@diagramPending">Le diagramme d’architecture sera ajouté prochainement.</p> }
         </article>
         <article class="panel case-note"><h3 class="small-accent-heading" i18n="@@personalReflection">Retour d’expérience personnel</h3>

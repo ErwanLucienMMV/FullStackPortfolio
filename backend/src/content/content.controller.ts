@@ -16,6 +16,12 @@ export class ContentController {
     return this.content.projects(locale, category);
   }
 
+  @Get('diagrams/full-stack-portfolio.svg')
+  @Header('X-Content-Type-Options', 'nosniff')
+  portfolioDiagram() {
+    return this.content.portfolioDiagram();
+  }
+
   @Get('parcours')
   journey(@Query('locale') locale: unknown) {
     return this.content.journey(locale);

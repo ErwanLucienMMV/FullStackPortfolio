@@ -216,7 +216,22 @@
       "GitHub API",
       "Docker",
       "Podman"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "Portfolio bilingue Angular et NestJS présentant projets, parcours et compétences, avec API REST, statistiques GitHub et environnement Docker/Podman.",
+      "architecture": [
+        "Nginx : HTTPS, fichiers statiques et proxy /api",
+        "Angular SSR et hydratation des pages en français et en anglais",
+        "API NestJS : contenu JSON, documents, statistiques GitHub et formulaire de contact"
+      ],
+      "contributions": [
+        "Interface Angular bilingue avec chargement des projets depuis l’API et données de secours",
+        "Endpoints NestJS pour les contenus localisés, les documents et les intégrations externes",
+        "Déploiement conteneurisé avec Nginx, Angular SSR et NestJS"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/FullStackPortfolio",
+      "diagramUrl": "/api/diagrams/full-stack-portfolio.svg"
+    }
   },
   {
     "id": "42matcha",

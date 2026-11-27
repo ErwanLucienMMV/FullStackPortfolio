@@ -44,6 +44,22 @@ test('portfolio routes serve localized editable content and real document files'
     assert.deepEqual(await (await request('/')).json(), { status: 'ok' });
   });
 
+  await t.test('the portfolio case study links to the packaged SVG through the API in both locales', async () => {
+    const expected = await readFile(join(__dirname, '../../docs/uml/production-deployment-overview.svg'), 'utf8');
+    for (const locale of ['fr', 'en']) {
+      const projects = await (await browser(`/api/projets?locale=${locale}`)).json();
+      const project = projects.find(project => project.id === 'full-stack-portfolio');
+      assert.equal(project.caseStudy.diagramUrl, '/api/diagrams/full-stack-portfolio.svg');
+      const diagram = await browser(project.caseStudy.diagramUrl);
+      assert.equal(diagram.status, 200);
+      assert.equal(diagram.headers.get('content-type'), 'image/svg+xml');
+      assert.equal(diagram.headers.get('x-content-type-options'), 'nosniff');
+      assert.equal(diagram.headers.get('content-disposition'), 'inline; filename="full-stack-portfolio.svg"');
+      assert.equal(await diagram.text(), expected);
+    }
+    assert.equal((await browser('/api/diagrams/unknown.svg')).status, 404);
+  });
+
   for (const locale of ['fr', 'en']) {
     await t.test(`all projects and all seven category endpoints in ${locale}`, async () => {
       const all = await request(`/projets?locale=${locale}`);

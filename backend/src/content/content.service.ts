@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, ServiceUnavailableException } from '@nestjs/common';
+import { Injectable, NotFoundException, ServiceUnavailableException, StreamableFile } from '@nestjs/common';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { PROJECT_CATEGORIES } from './content.types';
@@ -7,6 +7,18 @@ import { contentLocale, validContent } from './content.validation';
 
 @Injectable()
 export class ContentService {
+  async portfolioDiagram(): Promise<StreamableFile> {
+    try {
+      const svg = await readFile(join(__dirname, 'diagrams', 'full-stack-portfolio.svg'));
+      return new StreamableFile(svg, {
+        type: 'image/svg+xml',
+        disposition: 'inline; filename="full-stack-portfolio.svg"',
+      });
+    } catch {
+      throw new ServiceUnavailableException('Portfolio diagram is temporarily unavailable');
+    }
+  }
+
   async projects(locale: unknown, category?: string): Promise<Project[]> {
     if (category !== undefined && !(PROJECT_CATEGORIES as readonly string[]).includes(category)) {
       throw new NotFoundException('Unknown project category');

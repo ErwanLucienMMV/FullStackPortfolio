@@ -2,7 +2,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { LOCALE_ID } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
+import { of } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ProjectsPage } from './projects.page';
 
@@ -84,5 +85,34 @@ describe('ProjectsPage GitHub activity', () => {
     const request = http.expectOne('/api/stats/github');
     fixture.destroy();
     expect(request.cancelled).toBe(true);
+  });
+
+  it('renders the selected portfolio diagram from API metadata as a full-size link', () => {
+    vi.spyOn(TestBed.inject(ActivatedRoute), 'queryParamMap', 'get')
+      .mockReturnValue(of(convertToParamMap({ project: 'full-stack-portfolio' })));
+    fixture = TestBed.createComponent(ProjectsPage);
+    fixture.detectChanges();
+    TestBed.tick();
+    const project = {
+      id: 'full-stack-portfolio', name: 'FullStackPortfolio', categories: ['fullstack'],
+      description: 'Portfolio', type: 'personal', technologies: ['Angular', 'NestJS'],
+      caseStudy: {
+        summary: 'Portfolio architecture', architecture: ['Angular', 'NestJS'], contributions: [],
+        diagramUrl: '/api/diagrams/full-stack-portfolio.svg',
+      },
+    };
+    http.expectOne('/api/projets?locale=fr').flush([
+      { ...project, id: 'other-project', name: 'Other project' }, project,
+    ]);
+    http.expectOne('/api/stats/github').flush({ publicRepositories: 0, contributions: 0, mainLanguages: [] });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('#case-study-title').textContent).toBe('FullStackPortfolio');
+    const image = fixture.nativeElement.querySelector('.architecture-image') as HTMLImageElement;
+    expect(image.getAttribute('src')).toBe(project.caseStudy.diagramUrl);
+    expect(image.alt).toBe('FullStackPortfolio');
+    const link = image.closest('a')!;
+    expect(link.getAttribute('href')).toBe(project.caseStudy.diagramUrl);
+    expect(link.target).toBe('_blank');
+    expect(link.rel).toBe('noopener noreferrer');
   });
 });
