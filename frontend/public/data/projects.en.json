@@ -115,7 +115,18 @@
       "PHP-FPM",
       "MariaDB",
       "Shell"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "A containerized WordPress infrastructure with custom Docker images for TLS-enabled NGINX, PHP-FPM, and MariaDB, isolated networking, and persistent storage.",
+      "contributions": [],
+      "architecture": [
+        "Browser HTTPS :443 → TLS NGINX",
+        "Shared static files or FastCGI to WordPress/PHP-FPM :9000",
+        "WordPress → MariaDB :3306 on the private inception network, persistent volumes"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/Inception",
+      "diagramUrl": "/api/diagrams/inception.svg"
+    }
   },
   {
     "id": "my-philosopher",
