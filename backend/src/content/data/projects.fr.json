@@ -142,7 +142,18 @@
       "POSIX threads",
       "Mutexes",
       "Make"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "Simulation du dîner des philosophes en C pour explorer les threads, la synchronisation par mutex et la prévention des accès concurrents aux données.",
+      "contributions": [],
+      "architecture": [
+        "t_table : configuration, philosophes, fourchettes et arrêt partagé",
+        "Un thread par t_philo, références aux deux mutex voisins",
+        "monitor_routine surveille les repas et déclenche l’arrêt commun"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/my_philosopher",
+      "diagramUrl": "/api/diagrams/my-philosopher.svg"
+    }
   },
   {
     "id": "mypushswap",

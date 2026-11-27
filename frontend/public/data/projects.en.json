@@ -142,7 +142,18 @@
       "POSIX threads",
       "Mutexes",
       "Make"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "A dining philosophers simulation in C exploring threads, mutex synchronization, and the prevention of data races.",
+      "contributions": [],
+      "architecture": [
+        "t_table: configuration, philosophers, forks and shared stop state",
+        "One thread per t_philo, referencing two neighboring fork mutexes",
+        "monitor_routine observes meals and triggers the shared stop state"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/my_philosopher",
+      "diagramUrl": "/api/diagrams/my-philosopher.svg"
+    }
   },
   {
     "id": "mypushswap",
