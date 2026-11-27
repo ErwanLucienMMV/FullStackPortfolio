@@ -46,7 +46,18 @@
       "TCP/IP",
       "select",
       "Make"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "A C++98 IRC server handling multiple clients, private messages, channels, and moderation commands over TCP sockets.",
+      "contributions": [],
+      "architecture": [
+        "Nonblocking TCP server and select event loop",
+        "Server owns Client and Channel values keyed by socket and name",
+        "parseCommand produces a Command before IRC handler validation and execution"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/ft_irc",
+      "diagramUrl": "/api/diagrams/ft-irc.svg"
+    }
   },
   {
     "id": "ft-transcendance",
