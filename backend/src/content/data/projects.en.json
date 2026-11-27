@@ -380,7 +380,18 @@
     "technologies": [
       "Python",
       "Pygame"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "A playable Pygame Snake environment with four-direction observations, preparing a reinforcement learning project whose agent is still to be implemented.",
+      "contributions": [],
+      "architecture": [
+        "CLI --play → Pygame GameWindow and manual controls",
+        "Display-independent SnakeGame with actions and StepResult",
+        "observe produces four-direction Vision, with agent and learning not implemented"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/42Learn2Slither",
+      "diagramUrl": "/api/diagrams/42learn2slither.svg"
+    }
   },
   {
     "id": "42camagru",
