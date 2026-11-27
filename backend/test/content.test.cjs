@@ -60,6 +60,24 @@ test('portfolio routes serve localized editable content and real document files'
     assert.equal((await browser('/api/diagrams/unknown.svg')).status, 404);
   });
 
+  await t.test('every published project diagram is served through the API in both locales', async () => {
+    for (const locale of ['fr', 'en']) {
+      const projects = await (await browser(`/api/projets?locale=${locale}`)).json();
+      for (const project of projects.filter(project => project.caseStudy?.diagramUrl)) {
+        const url = `/api/diagrams/${project.id}.svg`;
+        assert.equal(project.caseStudy.diagramUrl, url);
+        const response = await browser(url);
+        assert.equal(response.status, 200, project.id);
+        assert.equal(response.headers.get('content-type'), 'image/svg+xml');
+        assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
+        assert.equal(await response.text(), await readFile(join(__dirname, `../src/content/diagrams/${project.id}.svg`), 'utf8'));
+      }
+    }
+    for (const name of ['unknown.svg', '..%2Fapp.module.svg', 'file.json', '.hidden.svg']) {
+      assert.equal((await browser(`/api/diagrams/${name}`)).status, 404);
+    }
+  });
+
   for (const locale of ['fr', 'en']) {
     await t.test(`all projects and all seven category endpoints in ${locale}`, async () => {
       const all = await request(`/projets?locale=${locale}`);

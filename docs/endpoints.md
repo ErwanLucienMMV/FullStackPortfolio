@@ -23,6 +23,7 @@ For the endpoints documented here, the proxy removes `/api` before forwarding:
 | `GET /api/projets` | `GET /projets` |
 | `GET /api/projets/<category>` | `GET /projets/<category>` |
 | `GET /api/diagrams/full-stack-portfolio.svg` | `GET /diagrams/full-stack-portfolio.svg` |
+| `GET /api/diagrams/<project-id>.svg` | `GET /diagrams/<project-id>.svg` |
 | `GET /api/parcours` | `GET /parcours` |
 | `GET /api/skills` | `GET /skills` |
 | `GET /api/documents` | `GET /documents` |
@@ -154,7 +155,10 @@ The same SVG is used by both languages. The asset is bundled from
 `dist/content/diagrams` by Nest, so development and production images serve it
 without access to the repository's `docs` directory. Keep this bundled copy in
 sync with `docs/uml/production-deployment-overview.svg` when regenerating it.
-An unavailable bundled file returns `503`; other diagram paths return `404`.
+Each reviewed project can supply `/api/diagrams/<project-id>.svg` through the
+same endpoint. Only lowercase alphanumeric names separated by hyphens and ending
+in `.svg` are accepted; paths cannot select arbitrary files. Missing assets return
+`404`; other filesystem failures return `503`.
 The development proxy includes `diagrams` in its API rewrite, and production
 Nginx gives `/api/` priority over static SVG routing.
 

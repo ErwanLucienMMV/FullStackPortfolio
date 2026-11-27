@@ -17,7 +17,18 @@
       "Traefik",
       "Prometheus",
       "Grafana"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "Manage Docker game servers through Discord, with access control, instance start/stop commands, monitoring, and backups.",
+      "contributions": [],
+      "architecture": [
+        "Discord interactions → DiscordService → HTTP ControllerClient",
+        "ControllerService: authorization, operations and Docker control",
+        "Monitoring and stopped-volume backups with shared locking"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/AtlasDominion",
+      "diagramUrl": "/api/diagrams/atlas-dominion.svg"
+    }
   },
   {
     "id": "ft-irc",

@@ -17,7 +17,18 @@
       "Traefik",
       "Prometheus",
       "Grafana"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "Pilotage de serveurs de jeux Docker depuis Discord : contrôle des accès, démarrage et arrêt des instances, supervision et sauvegardes.",
+      "contributions": [],
+      "architecture": [
+        "Interactions Discord → DiscordService → ControllerClient HTTP",
+        "ControllerService : autorisation, opérations et contrôle Docker",
+        "Monitoring et sauvegardes de volumes arrêtés avec verrou partagé"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/AtlasDominion",
+      "diagramUrl": "/api/diagrams/atlas-dominion.svg"
+    }
   },
   {
     "id": "ft-irc",

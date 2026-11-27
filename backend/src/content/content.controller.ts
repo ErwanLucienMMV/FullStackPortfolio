@@ -16,10 +16,10 @@ export class ContentController {
     return this.content.projects(locale, category);
   }
 
-  @Get('diagrams/full-stack-portfolio.svg')
+  @Get('diagrams/:name')
   @Header('X-Content-Type-Options', 'nosniff')
-  portfolioDiagram() {
-    return this.content.portfolioDiagram();
+  diagram(@Param('name') name: string) {
+    return this.content.diagram(name);
   }
 
   @Get('parcours')

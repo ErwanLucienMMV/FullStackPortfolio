@@ -7,14 +7,18 @@ import { contentLocale, validContent } from './content.validation';
 
 @Injectable()
 export class ContentService {
-  async portfolioDiagram(): Promise<StreamableFile> {
+  async diagram(name: string): Promise<StreamableFile> {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*\.svg$/.test(name)) {
+      throw new NotFoundException('Diagram not found');
+    }
     try {
-      const svg = await readFile(join(__dirname, 'diagrams', 'full-stack-portfolio.svg'));
+      const svg = await readFile(join(__dirname, 'diagrams', name));
       return new StreamableFile(svg, {
         type: 'image/svg+xml',
-        disposition: 'inline; filename="full-stack-portfolio.svg"',
+        disposition: `inline; filename="${name}"`,
       });
-    } catch {
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') throw new NotFoundException('Diagram not found');
       throw new ServiceUnavailableException('Portfolio diagram is temporarily unavailable');
     }
   }
