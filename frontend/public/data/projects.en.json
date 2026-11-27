@@ -251,7 +251,18 @@
       "NASM",
       "Python",
       "Make"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "Self-reproducing Colleen, Grace, and Sully programs in C and x86-64 assembly, with a Python bonus, exploring quines and code generation.",
+      "contributions": [],
+      "architecture": [
+        "Three independent programs: Colleen, Grace and Sully",
+        "Encoded source → standard output or child file",
+        "Sully writes, compiles and runs generations with a decreasing counter"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/DrQuinn",
+      "diagramUrl": "/api/diagrams/dr-quinn.svg"
+    }
   },
   {
     "id": "piscine-django-42",
