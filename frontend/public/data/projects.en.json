@@ -284,7 +284,18 @@
       "CSS",
       "JavaScript",
       "Django Channels"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "Python and Django exercises covering web pages, SQL and ORM queries, sessions, AJAX authentication, and WebSocket chat with persistent history.",
+      "contributions": [],
+      "architecture": [
+        "Independent exercises, with UML focused on the final d09 chat",
+        "ASGI and Django Channels: authenticated sessions, ChatConsumer and RoomState",
+        "Room/Message persisted in SQLite, broadcasting through an in-memory Channels layer"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/Piscine-Django-42",
+      "diagramUrl": "/api/diagrams/piscine-django-42.svg"
+    }
   },
   {
     "id": "full-stack-portfolio",

@@ -11,3 +11,4 @@ Each diagram records the reviewed source commit and distinguishes implemented co
 - [minirt](minirt.md)
 - [my-philosopher](my-philosopher.md)
 - [mypushswap](mypushswap.md)
+- [piscine-django-42](piscine-django-42.md)
