@@ -195,7 +195,18 @@
       "MiniLibX",
       "POSIX threads",
       "Make"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "A C ray tracer loading .rt scenes and computing lighting, shadows, and reflections, with scene editing and bonus multithreaded rendering.",
+      "contributions": [],
+      "architecture": [
+        ".rt scene → t_scene: camera, light and object list",
+        "Tagged-union sphere/plane/cylinder objects and ray intersections",
+        "t_gfx drives MiniLibX and rendering, with parallel jobs in the bonus build"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/minirt",
+      "diagramUrl": "/api/diagrams/minirt.svg"
+    }
   },
   {
     "id": "ft-minishell",

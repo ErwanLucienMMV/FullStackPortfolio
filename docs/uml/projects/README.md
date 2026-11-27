@@ -6,5 +6,6 @@ Each diagram records the reviewed source commit and distinguishes implemented co
 - [ft-irc](ft-irc.md)
 - [ft-transcendance](ft-transcendance.md)
 - [inception](inception.md)
+- [minirt](minirt.md)
 - [my-philosopher](my-philosopher.md)
 - [mypushswap](mypushswap.md)

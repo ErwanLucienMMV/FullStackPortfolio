@@ -195,7 +195,18 @@
       "MiniLibX",
       "POSIX threads",
       "Make"
-    ]
+    ],
+    "caseStudy": {
+      "summary": "Moteur de ray tracing en C lisant des scènes .rt et calculant éclairage, ombres et réflexions, avec édition de scène et rendu multithread en bonus.",
+      "contributions": [],
+      "architecture": [
+        "Scène .rt → t_scene : caméra, lumière et liste d’objets",
+        "Objets sphère/plan/cylindre dans une union typée, intersections de rayons",
+        "t_gfx pilote MiniLibX et le rendu, travaux parallèles dans la version bonus"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/minirt",
+      "diagramUrl": "/api/diagrams/minirt.svg"
+    }
   },
   {
     "id": "ft-minishell",
