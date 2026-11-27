@@ -84,17 +84,18 @@
     "featured": true,
     "caseStudy": {
       "summary": "Reproduire l’expérience d’une plateforme de jeu d’échecs multijoueur.",
-      "architecture": [
-        "Angular → NestJS API",
-        "PostgreSQL / chess-engine / Forgemail",
-        "Prometheus / Grafana / Backups"
-      ],
       "contributions": [
         "Infrastructure Docker & Nginx",
         "API REST, parties, matchmaking & puzzles",
         "WebSockets, sauvegardes & monitoring"
       ],
-      "repositoryUrl": "https://github.com/ErwanLucienMMV/ft_transcendance"
+      "architecture": [
+        "Angular → API NestJS et WebSocket JSON /ws",
+        "GameRealtimeService → GamesService : règles, transactions et horloges",
+        "TypeORM/PostgreSQL et moteur d’échecs externe via WebSocket"
+      ],
+      "repositoryUrl": "https://github.com/ErwanLucienMMV/ft_transcendance",
+      "diagramUrl": "/api/diagrams/ft-transcendance.svg"
     }
   },
   {
